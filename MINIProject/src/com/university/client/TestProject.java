@@ -81,14 +81,18 @@ public class TestProject {
 							break;	
 				}
 				break;
-		case 2:	System.out.println("\t1 View Applications");
-				System.out.println("\t2 Accept/Reject Application");
-				System.out.println("\t3 Participant Confirmation");
-				System.out.println("Enter your Choice:");
-				int choice2=in.nextInt();
-				switch(choice2){
-				case 1: 		
+		case 2:	try {
+					System.out.println("Enter LogID");
+					String loginId=in.nextLine();
+					loginId=in.nextLine();
+					System.out.println("Enter Password");
+					String pwd=in.nextLine();
+					if(dao.validateMAC(loginId, pwd))
+						MACClient.showMACClient();
+				} catch (Exception e) {
+				e.printStackTrace();
 				}
+				break;
 		
 		}
 	in.close();

@@ -78,8 +78,6 @@ public class DAOImpl {
 		PreparedStatement pseq=conn.prepareStatement(app);
 		pseq.setString(1,pId);
 		ResultSet rs=pseq.executeQuery();
-		List<Application> apps=new ArrayList<>();
-		String status="";
 		Application applicant;
 		System.out.println("ApplicationID Full_name Date_of_birth Highest_qualification Marks_obtained Goals EmailID Scheduled_Program_ID Status Date_of_interview");
 		while(rs.next()){
@@ -91,5 +89,21 @@ public class DAOImpl {
 					+" "+applicant.getScheduledProgramId()+" "+applicant.getDateOfInterview());
 		}
 		conn.close();
+	}
+	
+	public boolean validateMAC(String loginId,String pwd) throws Exception{
+		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
+		String app="select * from users where login_id=? and password=? and role=?";
+		PreparedStatement pstmt=conn.prepareStatement(app);
+		pstmt.setString(1,loginId);
+		pstmt.setString(2,pwd);
+		pstmt.setString(3,"mac");
+		ResultSet rs=pstmt.executeQuery();
+		if(rs.next()){
+			conn.close();
+			return true;
+		}
+		conn.close();
+		return false;
 	}
 }
