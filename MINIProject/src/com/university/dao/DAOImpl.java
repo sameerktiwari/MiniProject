@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.university.entities.Application;
 
@@ -13,15 +15,16 @@ public class DAOImpl {
 	public void getProgrammes() throws Exception{
 		Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
 		Statement st=conn.createStatement();
-		ResultSet rs=st.executeQuery("select * from programs_offered");
-		System.out.println("ProgramName Description Applicant_Eligibility Duration Degree_certificate_offered");
+		ResultSet rs=st.executeQuery("select * from programs_scheduled");
+		System.out.println("Scheduled_program_ID ProgramName Location Start_date End_date Sessions_per_week");
 		while(rs.next()){
-			String pName=rs.getString(1);
-			String pDesc=rs.getString(2);
-			String pElig=rs.getString(3);
-			int pDur=rs.getInt(4);
-			String pDegree=rs.getString(5);
-			System.out.println(pName+" "+pDesc+" "+pElig+" "+pDur+" "+pDegree);
+			String pId=rs.getString(1);
+			String pName=rs.getString(2);
+			String pLoc=rs.getString(2);
+			Date sdate=rs.getDate(4);
+			Date edate=rs.getDate(5);
+			int sessions=rs.getInt(6);
+			System.out.println(pId+" "+pName+" "+pLoc+" "+sdate+" "+edate+" "+sessions);
 			}
 		conn.close();
 	}
@@ -36,27 +39,6 @@ public class DAOImpl {
 		if(rs.next())
 			status=rs.getString(1);
 		System.out.println("Application ID: "+app_id+"\nApplication Status: "+status);
-		conn.close();
-	}
-	public void getApplications() throws Exception{
-		Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
-		Statement st=conn.createStatement();
-		ResultSet rs=st.executeQuery("select * from application");
-		Application app;
-		System.out.println("ApplicationID Full_name Date_of_birth Highest_qualification Marks_obtained Goals EmailID Scheduled_Program_ID Status Date_of_interview");
-		while(rs.next()){
-			app=new Application(rs.getInt(1),rs.getString(2),rs.getDate(3)+"",rs.getString(4),
-					rs.getInt(5),rs.getString(6),rs.getString(7),rs.getString(8));/*
-			int app_id=rs.getInt(1);
-			String aName=rs.getString(2);
-			Date aDob=Date.valueOf(rs.getString(3));
-			String aHqual=rs.getString(4);
-			
-			String aElig=rs.getString(3);
-			int pDur=rs.getInt(4);
-			String pDegree=rs.getString(5);*/
-			//System.out.println(app.applicationId+" "+app.getFullName()+" "+app.getDateOfBirth()+" "+pDur+" "+pDegree);
-			}
 		conn.close();
 	}
 	public void submit(Application applicant) throws Exception{
@@ -86,6 +68,27 @@ public class DAOImpl {
 		if(rs1.next())
 			app_id=rs1.getInt(1);
 		System.out.println("Application Submitted Successfully");
+		conn.close();
+	}
+	
+	public void getApplications(String pId) throws Exception{
+		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
+		String app="select * from application where scheduled_program_id=?";
+		PreparedStatement pseq=conn.prepareStatement(app);
+		pseq.setString(1,pId);
+		ResultSet rs=pseq.executeQuery();
+		List<Application> apps=new ArrayList<>();
+		String status="";
+		Application applicant;
+		System.out.println("ApplicationID Full_name Date_of_birth Highest_qualification Marks_obtained Goals EmailID Scheduled_Program_ID Status Date_of_interview");
+		while(rs.next()){
+			applicant=new Application(rs.getInt(1),rs.getString(2),rs.getDate(3)+"",rs.getString(4),
+					rs.getInt(5),rs.getString(6),rs.getString(7),rs.getString(8));
+			System.out.println(applicant.getApplicationId()+" "+applicant.getFullName()
+					+" "+applicant.getDateOfBirth()+" "+applicant.getHighestQualification()
+					+" "+applicant.getMarksObtained()+" "+applicant.getGoals()
+					+" "+applicant.getScheduledProgramId()+" "+applicant.getDateOfInterview());
+		}
 		conn.close();
 	}
 }
