@@ -126,4 +126,45 @@ public class DAOImpl {
 		pstmt.execute();
 		conn.close();
 	}
+
+	public int statusConfirm(String apId, String confirm) throws Exception{
+		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
+		String app="update application set status=? where application_id=? and date_of_interview is NOT NULL";
+		PreparedStatement pstmt=conn.prepareStatement(app);
+		pstmt.setString(1,confirm);
+		pstmt.setString(2,apId);
+		int updt=pstmt.executeUpdate();
+		conn.close();
+		return updt;
+	}
+
+	public void addParticipant(String apId) throws Exception{
+		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
+		String app="select * from application where application_id=?";
+		PreparedStatement pseq=conn.prepareStatement(app);
+		pseq.setString(1,apId);
+		ResultSet rs=pseq.executeQuery();
+		Application applicant=new Application();
+		if(rs.next()){
+			applicant.setApplicationId(rs.getInt(1));
+			applicant.setFullName(rs.getString(2));
+			applicant.setDateOfBirth(rs.getDate(3)+"");
+			applicant.setHighestQualification(rs.getString(4));
+			applicant.setMarksObtained(rs.getInt(5));
+			applicant.setGoals(rs.getString(6));
+			applicant.setEmail(rs.getString(7));
+			applicant.setScheduledProgramId(rs.getString(8));
+			applicant.setStatus(rs.getString(9));
+			applicant.setDateOfInterview(rs.getDate(10));
+		}
+		String app1="insert into participant values(?,?,?,?)";
+		PreparedStatement pstmt=conn.prepareStatement(app1);
+		pstmt.setString(1,"Fuck");
+		pstmt.setString(2,applicant.getEmail());
+		pstmt.setInt(3,applicant.getApplicationId());
+		pstmt.setString(4,applicant.getScheduledProgramId());
+		pstmt.execute();
+		System.out.println("Participant added successfully");
+		conn.close();
+	}
 }

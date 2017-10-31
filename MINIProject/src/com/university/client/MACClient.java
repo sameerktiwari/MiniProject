@@ -39,7 +39,23 @@ public class MACClient {
 					else{
 						dao.updateStatus(appId,"Rejected");
 					}
-					break;			
+					break;	
+					
+		case 3:		System.out.println("Enter Application ID");
+					String apId=in.nextLine();
+					apId=in.nextLine();
+					System.out.println("Confirm (Y/N)");
+					String confirm=in.nextLine();
+					if(confirm.equals("Y")||(confirm.equals("y")))
+					{
+						if(dao.statusConfirm(apId,"Confirmed")>0){
+							dao.addParticipant(apId);
+						}
+					}
+					else{
+						dao.statusConfirm(apId,"Rejected");
+					}
+					break;				
 		}
 	}
 }
