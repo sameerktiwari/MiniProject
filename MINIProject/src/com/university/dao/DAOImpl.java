@@ -106,4 +106,24 @@ public class DAOImpl {
 		conn.close();
 		return false;
 	}
+
+	public void updateStatus(String appId,String status) throws Exception{
+		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
+		String app="update application set status=? where application_id=?";
+		PreparedStatement pstmt=conn.prepareStatement(app);
+		pstmt.setString(1,status);
+		pstmt.setString(2,appId);
+		pstmt.execute();
+		conn.close();
+	}
+
+	public void setInterview(String appId, Date intDate) throws Exception{
+		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
+		String app="update application set Date_Of_Interview=? where application_id=?";
+		PreparedStatement pstmt=conn.prepareStatement(app);
+		pstmt.setDate(1,intDate);
+		pstmt.setString(2,appId);
+		pstmt.execute();
+		conn.close();
+	}
 }

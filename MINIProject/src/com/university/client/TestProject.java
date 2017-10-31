@@ -82,7 +82,7 @@ public class TestProject {
 				}
 				break;
 		case 2:	try {
-					System.out.println("Enter LogID");
+					System.out.println("Enter LoginID");
 					String loginId=in.nextLine();
 					loginId=in.nextLine();
 					System.out.println("Enter Password");
