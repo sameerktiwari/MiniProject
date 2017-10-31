@@ -1,2 +1,10 @@
 create table Programs_Scheduled
-(Scheduled_program_id varchar2(5),ProgramName varchar2(5),Location varchar2(10),start_date date,end_date date,sessions_per_week number);
+(Scheduled_program_id varchar2(10),ProgramName varchar2(20),Location varchar2(10),
+start_date date,end_date date,sessions_per_week number);
+
+insert into Programs_Scheduled
+values('1001','Accounting','Pune','30-NOV-17','30-DEC-17',4);
+insert into Programs_Scheduled
+values('1002','Entrepreneurship ','Pune','30-NOV-17','15-DEC-17',3);
+insert into Programs_Scheduled
+values('1003','Macroeconomics','Pune','15-DEC-17','30-DEC-17',5);
