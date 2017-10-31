@@ -1,3 +1,4 @@
+package com.university.entities;
 import java.sql.*;
 import java.util.Scanner;
 

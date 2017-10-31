@@ -1,3 +1,4 @@
+package com.university.entities;
 import java.sql.*;
 
 public class Application {
@@ -37,7 +38,7 @@ public class Application {
 		this.scheduledProgramId = scheduledProgramId;
 	}
 	
-	public void submit() throws Exception{
+	/*public void submit() throws Exception{
 		Date dob1=Date.valueOf(dateOfBirth);
 		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
 		String app="insert into application (application_id,full_name,date_of_birth,highest_qualification,marks_obtained,goals,email_id,scheduled_program_id) "
@@ -66,7 +67,7 @@ public class Application {
 		this.applicationId=app_id;
 		System.out.println("Application Submitted Successfully");
 		conn.close();
-	}
+	}*/
 	
 	public String getFullName() {
 		return fullName;
@@ -99,5 +100,19 @@ public class Application {
 	public int genId(){
 		return applicationId;
 	}
+
+	@Override
+	public String toString() {
+		return "Application [applicationId=" + applicationId + ", fullName="
+				+ fullName + ", dateOfBirth=" + dateOfBirth
+				+ ", highestQualification=" + highestQualification
+				+ ", marksObtained=" + marksObtained + ", email=" + email
+				+ ", goals=" + goals + ", scheduledProgramId="
+				+ scheduledProgramId + ", status=" + status
+				+ ", dateOfInterview=" + dateOfInterview + "]";
+	}
+	
+	
+	
 	
 }
