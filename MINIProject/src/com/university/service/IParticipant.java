@@ -4,6 +4,7 @@ import java.awt.List;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import com.university.entities.Application;
 import com.university.entities.ProgramScheduled;
 
 public interface IParticipant {
@@ -18,14 +19,16 @@ public interface IParticipant {
 	 * scheduled program, an applicant ID is auto generated at DB level
 	 */
 	void apply(ProgramScheduled programScheduled);
-	
+
 	/*
-	 * An applicant should be able to view the status of application by entering the Applicantion_id
+	 * An applicant should be able to view the status of application by entering
+	 * the Applicantion_id
 	 */
-	void viewApplication(String application_Id);
-	
+	Application viewApplication(String application_Id);
+
 	/*
 	 * View information of Programs Scheduled to Commence in a given time period
 	 */
-	void getAllProgramInPeriod(LocalDate start, LocalDate end);
+	ArrayList<ProgramScheduled> getAllProgramInPeriod(LocalDate start,
+			LocalDate end);
 }
