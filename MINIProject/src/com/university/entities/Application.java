@@ -13,6 +13,42 @@ public class Application {
 	public String status;
 	public Date dateOfInterview;
 	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public void setHighestQualification(String highestQualification) {
+		this.highestQualification = highestQualification;
+	}
+
+	public void setMarksObtained(int marksObtained) {
+		this.marksObtained = marksObtained;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setGoals(String goals) {
+		this.goals = goals;
+	}
+
+	public void setScheduledProgramId(String scheduledProgramId) {
+		this.scheduledProgramId = scheduledProgramId;
+	}
+
 	public int getApplicationId() {
 		return applicationId;
 	}
@@ -54,6 +90,8 @@ public class Application {
 		this.scheduledProgramId = scheduledProgramId;
 	}
 	
+	public Application(){
+	}
 	/**/
 	
 	public String getFullName() {
