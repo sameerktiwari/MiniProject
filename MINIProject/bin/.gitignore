@@ -1,14 +1,5 @@
-<<<<<<< HEAD
-/Admin.class
-/Application.class
-/MAC.class
-/Participant.class
-/ProgramSchedules.class
-/Programs.class
-/TestProject.class
+/com/
 /ojdbc5.jar
-=======
->>>>>>> be63df81fca308b580124c7f737647c73a98473c
 /ojdbc5_g.jar
 /ojdbc5dms.jar
 /ojdbc5dms_g.jar
@@ -17,17 +8,3 @@
 /ojdbc6dms.jar
 /ojdbc6dms_g.jar
 /simplefan.jar
-<<<<<<< HEAD
-/com/
-/ProgramScheduled.class
-=======
-/Admin.class
-/Application.class
-/MAC.class
-/Participant.class
-/ProgramSchedules.class
-/Programs.class
-/TestProject.class
-/ojdbc5.jar
-/com/
->>>>>>> be63df81fca308b580124c7f737647c73a98473c
