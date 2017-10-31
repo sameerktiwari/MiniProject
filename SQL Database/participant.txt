@@ -1,0 +1,5 @@
+create table Participant 
+(Roll_no varchar2(5),
+email_id varchar2(20),
+Application_id number references application(Application_id),
+Scheduled_program_id varchar2(5));

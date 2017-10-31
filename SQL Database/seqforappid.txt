@@ -1,0 +1,3 @@
+create sequence app_id
+start with 1001
+increment by 1

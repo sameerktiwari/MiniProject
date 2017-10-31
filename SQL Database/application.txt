@@ -1,0 +1,11 @@
+create table application
+(Application_id number primary key,
+full_name varchar2(20),
+date_of_birth date,
+highest_qualification varchar2(10),
+marks_obtained number,
+goals varchar2(20),
+email_id varchar2(20),
+Scheduled_program_id varchar2(5),
+status varchar2(10),
+Date_Of_Interview date);

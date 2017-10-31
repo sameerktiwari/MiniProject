@@ -1,0 +1,2 @@
+create table Programs_Offered
+(ProgramName varchar2(5),description varchar2(20),applicant_eligibility varchar2(40),duration number,degree_certificate_offered varchar2(10));
