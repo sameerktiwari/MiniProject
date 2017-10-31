@@ -1,7 +1,9 @@
 package com.university.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
+import com.university.entities.Application;
 import com.university.entities.ProgramScheduled;
 import com.university.entities.ProgramsOffered;
 
@@ -10,8 +12,8 @@ public interface IAdministrator {
 	 * Add a new program to the curriculum
 	 */
 	void insertProgram(ProgramsOffered programsOffered);
-	void deleteProgram();
-	void updateProgram();
+	void deleteProgram(ProgramsOffered programsOffered);
+	void updateProgram(ProgramsOffered programsOffered);
 	/*
 	 * Add a new program scheduled
 	 * Parameters are 
@@ -25,24 +27,24 @@ public interface IAdministrator {
 	 * whether the program is currently active or not that does not affect.
 	 * 
 	 */
-	void getAllProgram();
+	ArrayList<ProgramsOffered> getAllProgram();
 	
 	/*
 	 * This Functionality lets administrator to see all the scheduled programs created 
 	 * whether the scheduled program is currently active or not or deleted that does not affect.
 	 * we have to list all
 	 */
-	void getAllSceduledProgram();
+	ArrayList<ProgramScheduled> getAllSceduledProgram();
 	
 	/*
 	 * View list of applications Accepted/Rejected/Confirmed for a particular Scheduled Program 
 	 * parameter 
 	 * 			Scheduled Program
 	 */
-	void allApplication(ProgramScheduled programScheduled);
+	ArrayList<Application> allApplication(ProgramScheduled programScheduled);
 	
 	/*
 	 * View information of Programs Scheduled to Commence in a given time period
 	 */
-	void getAllProgramInPeriod(LocalDate start, LocalDate end);
+	ArrayList<ProgramScheduled> getAllProgramInPeriod(LocalDate start, LocalDate end);
 }
