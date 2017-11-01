@@ -3,12 +3,13 @@ import java.sql.*;
 import java.util.Scanner;
 
 import com.university.dao.DAOImpl;
+import com.university.dao.IDao;
 import com.university.entities.Application;
 
 public class TestProject {
 	public static void main(String[] args) {
 	Scanner in=new Scanner(System.in);
-	DAOImpl dao=new DAOImpl();
+	IDao dao=new DAOImpl();
 	try {
 		DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
 	} catch (SQLException e1) {
