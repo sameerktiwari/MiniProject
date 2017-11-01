@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import com.university.entities.Application;
-import com.university.entities.ProgramScheduled;
+import com.university.entities.ProgramsScheduled;
 
 /**
  * @author akuma516
@@ -18,14 +18,14 @@ public interface IParticipant {
 	 * scheduled by the university, this screen has option to Apply for Program.
 	 * @return
 	 */
-	ArrayList<ProgramScheduled> viewScheduledProgram();
+	ArrayList<ProgramsScheduled> viewScheduledProgram();
 
 	/**
 	 * Allows an applicant to fill in and submit application form for a
 	 * scheduled program, an applicant ID is auto generated at DB level
 	 * @param programScheduled
 	 */
-	void apply(ProgramScheduled programScheduled); 
+	void apply(ProgramsScheduled programScheduled); 
 	/**
 	 * An applicant should be able to view the status of application by entering
 	 * the Applicantion_id
@@ -38,5 +38,5 @@ public interface IParticipant {
 	 * @param end
 	 * @return
 	 */
-	ArrayList<ProgramScheduled> getAllProgramInPeriod(LocalDate start, LocalDate end);
+	ArrayList<ProgramsScheduled> getAllProgramInPeriod(LocalDate start, LocalDate end);
 }

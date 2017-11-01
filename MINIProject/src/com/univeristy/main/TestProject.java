@@ -1,7 +1,9 @@
-package com.university.client;
+package com.univeristy.main;
 import java.sql.*;
 import java.util.Scanner;
 
+import com.university.client.AdminClient;
+import com.university.client.MACClient;
 import com.university.dao.DAOImpl;
 import com.university.entities.Application;
 
@@ -87,13 +89,25 @@ public class TestProject {
 					loginId=in.nextLine();
 					System.out.println("Enter Password");
 					String pwd=in.nextLine();
-					if(dao.validateMAC(loginId, pwd))
+					if(dao.validate(loginId, pwd,"mac"))
 						MACClient.showMACClient();
 				} catch (Exception e) {
 				e.printStackTrace();
 				}
 				break;
 		
+		case 3:	try {
+					System.out.println("Enter LoginID");
+					String loginId=in.nextLine();
+					loginId=in.nextLine();
+					System.out.println("Enter Password");
+					String pwd=in.nextLine();
+					if(dao.validate(loginId, pwd,"admin"))
+						AdminClient.showAdminClient();
+				} catch (Exception e) {
+				e.printStackTrace();
+				}
+				break;		
 		}
 	in.close();
 	}

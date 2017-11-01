@@ -6,10 +6,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.university.entities.Application;
+import com.university.entities.ProgramsOffered;
+import com.university.entities.ProgramsScheduled;
 
 public class DAOImpl {
 	
@@ -91,13 +91,13 @@ public class DAOImpl {
 		conn.close();
 	}
 	
-	public boolean validateMAC(String loginId,String pwd) throws Exception{
+	public boolean validate(String loginId,String pwd,String role) throws Exception{
 		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
 		String app="select * from users where login_id=? and password=? and role=?";
 		PreparedStatement pstmt=conn.prepareStatement(app);
 		pstmt.setString(1,loginId);
 		pstmt.setString(2,pwd);
-		pstmt.setString(3,"mac");
+		pstmt.setString(3,role);
 		ResultSet rs=pstmt.executeQuery();
 		if(rs.next()){
 			conn.close();
@@ -167,4 +167,48 @@ public class DAOImpl {
 		System.out.println("Participant added successfully");
 		conn.close();
 	}
+
+	public void deleteProgram(ProgramsOffered pgrm)  throws Exception{
+		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
+		String app="delete from programs_offered where programName=?";
+		PreparedStatement pstmt=conn.prepareStatement(app);
+		pstmt.setString(1,pgrm.getProgramName());
+		pstmt.execute();
+		conn.close();
+	}
+
+	public void addProgram(ProgramsOffered pgrm) throws Exception{
+		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
+		String app="insert into programs_offered values(?,?,?,?,?)";
+		PreparedStatement pstmt=conn.prepareStatement(app);
+		pstmt.setString(1,pgrm.getProgramName());
+		pstmt.setString(2,pgrm.getDescription());
+		pstmt.setString(3,pgrm.getApplicantEligibilty());
+		pstmt.setInt(4,pgrm.getDuration());
+		pstmt.setString(5,pgrm.getDegree());
+		pstmt.execute();
+	}
+
+	public void addProgramSchedule(ProgramsScheduled ps) throws Exception {
+		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
+		String app="insert into programs_scheduled values(?,?,?,?,?,?)";
+		PreparedStatement pstmt=conn.prepareStatement(app);
+		pstmt.setString(1,ps.getScheduledProgrammeId());
+		pstmt.setString(2,ps.getProgramName());
+		pstmt.setString(3,ps.getLocation());
+		pstmt.setDate(4,ps.getStartDate());
+		pstmt.setDate(5,ps.getEndDate());
+		pstmt.setInt(6,ps.getSessionsPerWeek());
+		pstmt.execute();
+	}
+
+	public void deleteProgramSchedule(ProgramsScheduled ps) throws Exception{
+		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
+		String app="delete from programs_scheduled where scheduled_program_id=?";
+		PreparedStatement pstmt=conn.prepareStatement(app);
+		pstmt.setString(1,ps.getScheduledProgrammeId());
+		pstmt.execute();
+		conn.close();
+	}
+
 }

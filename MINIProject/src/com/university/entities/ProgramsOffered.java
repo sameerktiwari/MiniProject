@@ -5,12 +5,12 @@ public class ProgramsOffered
 	private String programName;
 	private String description;
 	private String applicantEligibilty;
-	private String duration;
+	private int duration;
 	private String degree;
 	
 	
 	public ProgramsOffered(String programName, String description,
-			String applicantEligibilty, String duration, String degree) {
+			String applicantEligibilty, int duration, String degree) {
 		super();
 		this.programName = programName;
 		this.description = description;
@@ -19,6 +19,9 @@ public class ProgramsOffered
 		this.degree = degree;
 	}
 
+	public ProgramsOffered() {
+		super();
+	}
 
 	public String getProgramName() {
 		return programName;
@@ -50,12 +53,12 @@ public class ProgramsOffered
 	}
 
 
-	public String getDuration() {
+	public int getDuration() {
 		return duration;
 	}
 
 
-	public void setDuration(String duration) {
+	public void setDuration(int duration) {
 		this.duration = duration;
 	}
 

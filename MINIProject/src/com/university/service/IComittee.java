@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.Map;
 
 import com.university.entities.Application;
-import com.university.entities.ProgramScheduled;
+import com.university.entities.ProgramsScheduled;
 
 public interface IComittee {
 	/**
@@ -13,7 +13,7 @@ public interface IComittee {
 	 * @param programScheduled
 	 * @return
 	 */
-	Map<Integer, Application> viewApplication(ProgramScheduled programScheduled);
+	Map<Integer, Application> viewApplication(ProgramsScheduled programScheduled);
 
 	/**
 	 * He/She must be able to view the participants for a specific scheduled

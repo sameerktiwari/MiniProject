@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import com.university.entities.Application;
-import com.university.entities.ProgramScheduled;
+import com.university.entities.ProgramsScheduled;
 import com.university.entities.ProgramsOffered;
 
 public interface IAdministrator {
@@ -30,7 +30,7 @@ public interface IAdministrator {
 	 * 				affected commitee
 	 * @param programScheduled
 	 */
-	void addscheduleProgram(ProgramScheduled programScheduled);
+	void addscheduleProgram(ProgramsScheduled programScheduled);
 	/**
 	 * Delete a program scheduled
 	 * Parameters are 
@@ -38,7 +38,7 @@ public interface IAdministrator {
 	 * 				affected commitee
 	 * @param programScheduled
 	 */
-	void deleteScheduleProgram(ProgramScheduled programScheduled);
+	void deleteScheduleProgram(ProgramsScheduled programScheduled);
 	/**
 	 * Let administrator to see all the programs created 
 	 * whether the program is currently active or not that does not affect.
@@ -52,7 +52,7 @@ public interface IAdministrator {
 	 * we have to list all
 	 * @return
 	 */
-	ArrayList<ProgramScheduled> getAllSceduledProgram();
+	ArrayList<ProgramsScheduled> getAllSceduledProgram();
 	
 	/**
 	 * View list of applications Accepted/Rejected/Confirmed for a particular Scheduled Program 
@@ -61,7 +61,7 @@ public interface IAdministrator {
 	 * @param programScheduled
 	 * @return
 	 */
-	ArrayList<Application> allApplication(ProgramScheduled programScheduled);
+	ArrayList<Application> allApplication(ProgramsScheduled programScheduled);
 	
 	/**
 	 * View information of Programs Scheduled to Commence in a given time period
@@ -69,5 +69,5 @@ public interface IAdministrator {
 	 * @param end
 	 * @return
 	 */
-	ArrayList<ProgramScheduled> getAllProgramInPeriod(LocalDate start, LocalDate end);
+	ArrayList<ProgramsScheduled> getAllProgramInPeriod(LocalDate start, LocalDate end);
 }

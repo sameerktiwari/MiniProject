@@ -2,9 +2,9 @@ package com.university.entities;
 
 import java.sql.Date;
 
-public class ProgramScheduled {
+public class ProgramsScheduled {
 	
-	private int scheduledProgrammeId;
+	private String scheduledProgrammeId;
 	private String programName;
 	private String location;
 	private Date startDate;
@@ -12,7 +12,7 @@ public class ProgramScheduled {
 	private int sessionsPerWeek;
 	
 	
-	public ProgramScheduled(int scheduledProgrammeId, String programName,
+	public ProgramsScheduled(String scheduledProgrammeId, String programName,
 			String location, Date startDate, Date endDate, int sessionsPerWeek) {
 		super();
 		this.scheduledProgrammeId = scheduledProgrammeId;
@@ -22,14 +22,18 @@ public class ProgramScheduled {
 		this.endDate = endDate;
 		this.sessionsPerWeek = sessionsPerWeek;
 	}
+	
+	public ProgramsScheduled() {
+		super();
+	}
 
 
-	public int getScheduledProgrammeId() {
+	public String getScheduledProgrammeId() {
 		return scheduledProgrammeId;
 	}
 
 
-	public void setScheduledProgrammeId(int scheduledProgrammeId) {
+	public void setScheduledProgrammeId(String scheduledProgrammeId) {
 		this.scheduledProgrammeId = scheduledProgrammeId;
 	}
 

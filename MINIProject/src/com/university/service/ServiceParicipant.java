@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import com.university.entities.Application;
-import com.university.entities.ProgramScheduled;
+import com.university.entities.ProgramsScheduled;
 
 public class ServiceParicipant implements IParticipant {
 
@@ -13,13 +13,13 @@ public class ServiceParicipant implements IParticipant {
 	}
 
 	@Override
-	public ArrayList<ProgramScheduled> viewScheduledProgram() {
+	public ArrayList<ProgramsScheduled> viewScheduledProgram() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void apply(ProgramScheduled programScheduled) {
+	public void apply(ProgramsScheduled programScheduled) {
 		// TODO Auto-generated method stub
 
 	}
@@ -31,7 +31,7 @@ public class ServiceParicipant implements IParticipant {
 	}
 
 	@Override
-	public ArrayList<ProgramScheduled> getAllProgramInPeriod(LocalDate start,
+	public ArrayList<ProgramsScheduled> getAllProgramInPeriod(LocalDate start,
 			LocalDate end) {
 		// TODO Auto-generated method stub
 		return null;

@@ -1,4 +1,4 @@
-package com.cg.mp.client;
+package com.univeristy.main;
 
 public class client {
 	
