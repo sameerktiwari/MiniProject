@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import com.university.entities.Application;
-import com.university.entities.ProgramScheduled;
+
 import com.university.entities.ProgramsOffered;
 
 public class ServiceAdministrator implements IAdministrator {
