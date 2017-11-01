@@ -17,7 +17,7 @@ public class MACClient {
 		System.out.println("Enter your Choice:");
 		int choice=in.nextInt();
 		switch(choice){
-		case 1: 	System.out.println("Enter Application ID");
+		case 1: 	System.out.println("Enter Scheduled Programme ID");
 					String pId=in.nextLine();
 					pId=in.nextLine();
 					dao.getApplications(pId);

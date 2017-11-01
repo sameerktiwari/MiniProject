@@ -246,4 +246,52 @@ public class DAOImpl{
 		conn.close();
 	}
 
+	public void getStatusApps(String status) throws Exception{
+		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
+		String app="select * from application where status=?";
+		PreparedStatement pseq=conn.prepareStatement(app);
+		pseq.setString(1,status);
+		ResultSet rs=pseq.executeQuery();
+		Application applicant=new Application();
+		System.out.println("ApplicationID Full_name Date_of_birth Highest_qualification Marks_obtained Goals EmailID Scheduled_Program_ID Status Date_of_interview");
+		while(rs.next()){
+			applicant.setApplicationId(rs.getInt(1));
+			applicant.setFullName(rs.getString(2));
+			applicant.setDateOfBirth(rs.getDate(3)+"");
+			applicant.setHighestQualification(rs.getString(4));
+			applicant.setMarksObtained(rs.getInt(5));
+			applicant.setGoals(rs.getString(6));
+			applicant.setEmail(rs.getString(7));
+			applicant.setScheduledProgramId(rs.getString(8));
+			applicant.setStatus(rs.getString(9));
+			applicant.setDateOfInterview(rs.getDate(10));
+			System.out.println(applicant.getApplicationId()+" "+applicant.getFullName()
+					+" "+applicant.getDateOfBirth()+" "+applicant.getHighestQualification()
+					+" "+applicant.getMarksObtained()+" "+applicant.getGoals()+" "+applicant.getEmail()
+					+" "+applicant.getScheduledProgramId()+" "+applicant.getStatus()+" "+applicant.getDateOfInterview()+" ");
+		}
+		conn.close();
+	}
+
+	public void listPrograms(Date start, Date end) throws Exception{
+		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
+		String app="select * from programs_scheduled where start_date>=? and end_date<=?";
+		PreparedStatement pstmt=conn.prepareStatement(app);
+		pstmt.setDate(1,start);
+		pstmt.setDate(2,end);
+		ResultSet rs=pstmt.executeQuery();
+		System.out.println("Scheduled_program_ID ProgramName Location Start_date End_date Sessions_per_week");
+		while(rs.next()){
+			String pId=rs.getString(1);
+			String pName=rs.getString(2);
+			String pLoc=rs.getString(3);
+			Date sdate=rs.getDate(4);
+			Date edate=rs.getDate(5);
+			int sessions=rs.getInt(6);
+			System.out.println(pId+" "+pName+" "+pLoc+" "+sdate+" "+edate+" "+sessions);
+			}
+
+		conn.close();
+	}
+
 }

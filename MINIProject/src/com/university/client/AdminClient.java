@@ -87,7 +87,28 @@ public class AdminClient {
 					dao.deleteProgramSchedule(ps1);
 					break;
 					
-					
+		case 6:		System.out.println("\t1 List of Applicants Confirmed");
+					System.out.println("\t2 List of Applicants Accepted");
+					System.out.println("\t3 List of Applicants Rejected");
+					System.out.println("\t4 List of Programmes within a given time");
+					System.out.println("Enter your Choice:");
+					int choice1=in.nextInt();
+					switch(choice1){
+					case 1:	dao.getStatusApps("Confirmed");
+							break;
+					case 2:	dao.getStatusApps("Accepted");
+							break;
+					case 3:	dao.getStatusApps("Rejected");
+							break;
+					case 4:	System.out.println("Enter start date(yyyy-mm-dd)");
+							in.nextLine();
+							Date start=Date.valueOf(LocalDate.parse(in.nextLine()));
+							System.out.println("Enter end date(yyyy-mm-dd)");
+							Date end=Date.valueOf(LocalDate.parse(in.nextLine()));
+							dao.listPrograms(start,end);
+							break;		
+					}
+					break;			
 		}
 	}
 }
