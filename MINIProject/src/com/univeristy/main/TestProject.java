@@ -8,6 +8,7 @@ import com.university.client.MACClient;
 import com.university.dao.DAOImpl;
 import com.university.dao.IDao;
 import com.university.entities.Application;
+import com.university.exception.UniversityException;
 
 public class TestProject {
 	public static void main(String[] args) {
@@ -31,9 +32,9 @@ public class TestProject {
 		switch(choice){
 			case 1:	try {
 						ApplicantClient.showApplicantClient();
-					} catch (Exception e1) {
+					} catch (Exception e) {
 						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						System.out.println("Error Occured: "+e.getMessage());
 					}
 					break;
 			case 2:	try {
@@ -45,7 +46,7 @@ public class TestProject {
 						if(dao.validate(loginId, pwd,"mac"))
 							MACClient.showMACClient();
 					} catch (Exception e) {
-					e.printStackTrace();
+						System.out.println("Error Occured: "+e.getMessage());
 					}
 					break;
 			

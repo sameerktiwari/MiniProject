@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import com.university.dao.DAOImpl;
 import com.university.dao.IDao;
+import com.university.exception.UniversityException;
 
 public class MACClient {
 	private static DAOImpl dao=new DAOImpl();

@@ -10,6 +10,7 @@ import java.sql.Statement;
 import com.university.entities.Application;
 import com.university.entities.ProgramsOffered;
 import com.university.entities.ProgramsScheduled;
+import com.university.exception.UniversityException;
 
 public class DAOImpl{
 	
@@ -18,20 +19,26 @@ public class DAOImpl{
 	 */
 	
 	public void getProgrammes() throws Exception{
-		Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
-		Statement st=conn.createStatement();
-		ResultSet rs=st.executeQuery("select * from programs_scheduled");
-		System.out.println("Scheduled_program_ID ProgramName Location Start_date End_date Sessions_per_week");
-		while(rs.next()){
-			String pId=rs.getString(1);
-			String pName=rs.getString(2);
-			String pLoc=rs.getString(3);
-			Date sdate=rs.getDate(4);
-			Date edate=rs.getDate(5);
-			int sessions=rs.getInt(6);
-			System.out.println(pId+" "+pName+" "+pLoc+" "+sdate+" "+edate+" "+sessions);
+		int count=0;
+			Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
+			Statement st=conn.createStatement();
+			ResultSet rs=st.executeQuery("select * from programs_scheduled");
+			while(rs.next()){
+				if(count==0){
+					System.out.println("Scheduled_program_ID ProgramName Location Start_date End_date Sessions_per_week");
+					count=1;
+				}
+				String pId=rs.getString(1);
+				String pName=rs.getString(2);
+				String pLoc=rs.getString(3);
+				Date sdate=rs.getDate(4);
+				Date edate=rs.getDate(5);
+				int sessions=rs.getInt(6);
+				System.out.println(pId+" "+pName+" "+pLoc+" "+sdate+" "+edate+" "+sessions);
 			}
-		conn.close();
+			conn.close();
+			if(count==0)
+				throw new UniversityException("No Programmes avaialable");
 	}
 	
 	/* (non-Javadoc)
@@ -39,49 +46,47 @@ public class DAOImpl{
 	 */
 	
 	public void getStatus(int app_id) throws Exception{
-		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
-		String app="select status from application where application_id=?";
-		PreparedStatement pseq=conn.prepareStatement(app);
-		pseq.setInt(1,app_id);
-		ResultSet rs=pseq.executeQuery();
-		String status="";
-		if(rs.next())
-			status=rs.getString(1);
-		System.out.println("Application ID: "+app_id+"\nApplication Status: "+status);
-		conn.close();
+			Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
+			String app="select status from application where application_id=?";
+			PreparedStatement pseq=conn.prepareStatement(app);
+			pseq.setInt(1,app_id);
+			ResultSet rs=pseq.executeQuery();
+			String status="";
+			if(rs.next())
+				status=rs.getString(1);
+			else
+				throw new UniversityException("Invalid Application ID");
+			System.out.println("Application ID: "+app_id+"\nApplication Status: "+status);
+			conn.close();
 	}
 	/* (non-Javadoc)
 	 * @see com.university.dao.IDao#submit(com.university.entities.Application)
 	 */
 	
-	public void submit(Application applicant) throws Exception{
-		Date dob1=Date.valueOf(applicant.getDateOfBirth());
-		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
-		String app="insert into application (application_id,full_name,date_of_birth,highest_qualification,marks_obtained,goals,email_id,scheduled_program_id) "
-				+ "values(?,?,?,?,?,?,?,?)";
-		String appid="select app_id.nextval from dual";
-		PreparedStatement pseq=conn.prepareStatement(appid);
-		ResultSet rs=pseq.executeQuery();
-		int app_id=0;
-		if(rs.next())
-			app_id=rs.getInt(1);
-		PreparedStatement pstmt=conn.prepareStatement(app);
-		pstmt.setInt(1,app_id);
-		pstmt.setString(2,applicant.getFullName());
-		pstmt.setDate(3,dob1);
-		pstmt.setString(4,applicant.getHighestQualification());
-		pstmt.setInt(5,applicant.getMarksObtained());
-		pstmt.setString(6,applicant.getGoals());
-		pstmt.setString(7,applicant.getEmail());
-		pstmt.setString(8,applicant.getScheduledProgramId());
-		pstmt.execute();
-		String genappid="select app_id.currval from dual";
-		PreparedStatement gen=conn.prepareStatement(genappid);
-		ResultSet rs1=gen.executeQuery();
-		if(rs1.next())
-			app_id=rs1.getInt(1);
-		System.out.println("Application Submitted Successfully");
-		conn.close();
+	public int submit(Application applicant) throws Exception{
+			Date dob1=Date.valueOf(applicant.getDateOfBirth());
+			Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
+			String app="insert into application (application_id,full_name,date_of_birth,highest_qualification,marks_obtained,goals,email_id,scheduled_program_id) "
+					+ "values(?,?,?,?,?,?,?,?)";
+			String appid="select app_id.nextval from dual";
+			PreparedStatement pseq=conn.prepareStatement(appid);
+			ResultSet rs=pseq.executeQuery();
+			int app_id=0;
+			if(rs.next())
+				app_id=rs.getInt(1);
+			PreparedStatement pstmt=conn.prepareStatement(app);
+			pstmt.setInt(1,app_id);
+			pstmt.setString(2,applicant.getFullName());
+			pstmt.setDate(3,dob1);
+			pstmt.setString(4,applicant.getHighestQualification());
+			pstmt.setInt(5,applicant.getMarksObtained());
+			pstmt.setString(6,applicant.getGoals());
+			pstmt.setString(7,applicant.getEmail());
+			pstmt.setString(8,applicant.getScheduledProgramId());
+			pstmt.execute();
+			System.out.println("Application Submitted Successfully");
+			conn.close();
+			return app_id;
 	}
 	
 	/* (non-Javadoc)
@@ -89,41 +94,47 @@ public class DAOImpl{
 	 */
 	
 	public void getApplications(String pId) throws Exception{
-		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
-		String app="select * from application where scheduled_program_id=?";
-		PreparedStatement pseq=conn.prepareStatement(app);
-		pseq.setString(1,pId);
-		ResultSet rs=pseq.executeQuery();
-		Application applicant;
-		System.out.println("ApplicationID Full_name Date_of_birth Highest_qualification Marks_obtained Goals EmailID Scheduled_Program_ID Status Date_of_interview");
-		while(rs.next()){
-			applicant=new Application(rs.getInt(1),rs.getString(2),rs.getDate(3)+"",rs.getString(4),
-					rs.getInt(5),rs.getString(6),rs.getString(7),rs.getString(8));
-			System.out.println(applicant.getApplicationId()+" "+applicant.getFullName()
-					+" "+applicant.getDateOfBirth()+" "+applicant.getHighestQualification()
-					+" "+applicant.getMarksObtained()+" "+applicant.getGoals()
-					+" "+applicant.getScheduledProgramId()+" "+applicant.getDateOfInterview());
-		}
-		conn.close();
+		int count=0;
+			Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
+			String app="select * from application where scheduled_program_id=?";
+			PreparedStatement pseq=conn.prepareStatement(app);
+			pseq.setString(1,pId);
+			ResultSet rs=pseq.executeQuery();
+			Application applicant;
+			while(rs.next()){
+				if(count==0){
+				System.out.println("ApplicationID Full_name Date_of_birth Highest_qualification Marks_obtained Goals EmailID Scheduled_Program_ID Status Date_of_interview");
+				count=1;
+				}
+				applicant=new Application(rs.getInt(1),rs.getString(2),rs.getDate(3)+"",rs.getString(4),
+						rs.getInt(5),rs.getString(6),rs.getString(7),rs.getString(8));
+				System.out.println(applicant.getApplicationId()+" "+applicant.getFullName()
+						+" "+applicant.getDateOfBirth()+" "+applicant.getHighestQualification()
+						+" "+applicant.getMarksObtained()+" "+applicant.getGoals()
+						+" "+applicant.getScheduledProgramId()+" "+applicant.getDateOfInterview());
+			}
+			conn.close();
+			if(count==0)
+				throw new UniversityException("No Applications avaialable");
 	}
 	/* (non-Javadoc)
 	 * @see com.university.dao.IDao#validateMAC(java.lang.String, java.lang.String)
 	 */
 	
 	public boolean validate(String loginId,String pwd,String role) throws Exception{
-		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
-		String app="select * from users where login_id=? and password=? and role=?";
-		PreparedStatement pstmt=conn.prepareStatement(app);
-		pstmt.setString(1,loginId);
-		pstmt.setString(2,pwd);
-		pstmt.setString(3,role);
-		ResultSet rs=pstmt.executeQuery();
-		if(rs.next()){
+			Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
+			String app="select * from users where login_id=? and password=? and role=?";
+			PreparedStatement pstmt=conn.prepareStatement(app);
+			pstmt.setString(1,loginId);
+			pstmt.setString(2,pwd);
+			pstmt.setString(3,role);
+			ResultSet rs=pstmt.executeQuery();
+			if(rs.next()){
+				conn.close();
+				return true;
+			}
 			conn.close();
-			return true;
-		}
-		conn.close();
-		return false;
+			throw new UniversityException("Invalid LoginId/Password for the role provided");
 	}
 
 	/* (non-Javadoc)
@@ -136,8 +147,10 @@ public class DAOImpl{
 		PreparedStatement pstmt=conn.prepareStatement(app);
 		pstmt.setString(1,status);
 		pstmt.setString(2,appId);
-		pstmt.execute();
+		int res=pstmt.executeUpdate();
 		conn.close();
+		if(res==0)
+			throw new UniversityException("Invalid Application ID");
 	}
 
 	/* (non-Javadoc)
@@ -150,8 +163,10 @@ public class DAOImpl{
 		PreparedStatement pstmt=conn.prepareStatement(app);
 		pstmt.setDate(1,intDate);
 		pstmt.setString(2,appId);
-		pstmt.execute();
+		int res=pstmt.executeUpdate();
 		conn.close();
+		if(res==0)
+			throw new UniversityException("Invalid Application ID");
 	}
 
 	/* (non-Javadoc)
@@ -166,6 +181,8 @@ public class DAOImpl{
 		pstmt.setString(2,apId);
 		int updt=pstmt.executeUpdate();
 		conn.close();
+		if(updt==0)
+			throw new UniversityException("Invalid Application ID");
 		return updt;
 	}
 
@@ -194,7 +211,7 @@ public class DAOImpl{
 		}
 		String app1="insert into participant values(?,?,?,?)";
 		PreparedStatement pstmt=conn.prepareStatement(app1);
-		pstmt.setString(1,"Fuck");
+		pstmt.setString(1,"1");
 		pstmt.setString(2,applicant.getEmail());
 		pstmt.setInt(3,applicant.getApplicationId());
 		pstmt.setString(4,applicant.getScheduledProgramId());
@@ -247,14 +264,18 @@ public class DAOImpl{
 	}
 
 	public void getStatusApps(String status) throws Exception{
+		int count=0;
 		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
 		String app="select * from application where status=?";
 		PreparedStatement pseq=conn.prepareStatement(app);
 		pseq.setString(1,status);
 		ResultSet rs=pseq.executeQuery();
 		Application applicant=new Application();
-		System.out.println("ApplicationID Full_name Date_of_birth Highest_qualification Marks_obtained Goals EmailID Scheduled_Program_ID Status Date_of_interview");
 		while(rs.next()){
+			if(count==0){
+				System.out.println("ApplicationID Full_name Date_of_birth Highest_qualification Marks_obtained Goals EmailID Scheduled_Program_ID Status Date_of_interview");
+				count=1;
+			}
 			applicant.setApplicationId(rs.getInt(1));
 			applicant.setFullName(rs.getString(2));
 			applicant.setDateOfBirth(rs.getDate(3)+"");
@@ -271,17 +292,23 @@ public class DAOImpl{
 					+" "+applicant.getScheduledProgramId()+" "+applicant.getStatus()+" "+applicant.getDateOfInterview()+" ");
 		}
 		conn.close();
+		if(count==0)
+			throw new UniversityException("No applications with status: "+status);
 	}
 
 	public void listPrograms(Date start, Date end) throws Exception{
+		int count=0;
 		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
 		String app="select * from programs_scheduled where start_date>=? and end_date<=?";
 		PreparedStatement pstmt=conn.prepareStatement(app);
 		pstmt.setDate(1,start);
 		pstmt.setDate(2,end);
 		ResultSet rs=pstmt.executeQuery();
-		System.out.println("Scheduled_program_ID ProgramName Location Start_date End_date Sessions_per_week");
 		while(rs.next()){
+			if(count==0){
+				System.out.println("Scheduled_program_ID ProgramName Location Start_date End_date Sessions_per_week");
+				count=1;
+			}
 			String pId=rs.getString(1);
 			String pName=rs.getString(2);
 			String pLoc=rs.getString(3);
@@ -290,8 +317,9 @@ public class DAOImpl{
 			int sessions=rs.getInt(6);
 			System.out.println(pId+" "+pName+" "+pLoc+" "+sdate+" "+edate+" "+sessions);
 			}
-
 		conn.close();
+		if(count==0)
+			throw new UniversityException("No program available in given timeline");
 	}
 
 }
