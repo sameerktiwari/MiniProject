@@ -8,7 +8,7 @@ import com.university.dao.DAOImpl;
 import com.university.dao.IDao;
 
 public class MACClient {
-	private static IDao dao=new DAOImpl();
+	private static DAOImpl dao=new DAOImpl();
 	public static void showMACClient() throws Exception{
 		Scanner in=new Scanner(System.in);
 		System.out.println("\t1 View Applications");

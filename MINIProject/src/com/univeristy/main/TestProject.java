@@ -11,7 +11,7 @@ import com.university.entities.Application;
 public class TestProject {
 	public static void main(String[] args) {
 	Scanner in=new Scanner(System.in);
-	IDao dao=new DAOImpl();
+	DAOImpl dao=new DAOImpl();
 	try {
 		DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
 	} catch (SQLException e1) {

@@ -11,12 +11,12 @@ import com.university.entities.Application;
 import com.university.entities.ProgramsOffered;
 import com.university.entities.ProgramsScheduled;
 
-public class DAOImpl implements IDao {
+public class DAOImpl{
 	
 	/* (non-Javadoc)
 	 * @see com.university.dao.IDao#getProgrammes()
 	 */
-	@Override
+	
 	public void getProgrammes() throws Exception{
 		Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
 		Statement st=conn.createStatement();
@@ -37,7 +37,7 @@ public class DAOImpl implements IDao {
 	/* (non-Javadoc)
 	 * @see com.university.dao.IDao#getStatus(int)
 	 */
-	@Override
+	
 	public void getStatus(int app_id) throws Exception{
 		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
 		String app="select status from application where application_id=?";
@@ -53,7 +53,7 @@ public class DAOImpl implements IDao {
 	/* (non-Javadoc)
 	 * @see com.university.dao.IDao#submit(com.university.entities.Application)
 	 */
-	@Override
+	
 	public void submit(Application applicant) throws Exception{
 		Date dob1=Date.valueOf(applicant.getDateOfBirth());
 		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
@@ -87,7 +87,7 @@ public class DAOImpl implements IDao {
 	/* (non-Javadoc)
 	 * @see com.university.dao.IDao#getApplications(java.lang.String)
 	 */
-	@Override
+	
 	public void getApplications(String pId) throws Exception{
 		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
 		String app="select * from application where scheduled_program_id=?";
@@ -106,16 +106,11 @@ public class DAOImpl implements IDao {
 		}
 		conn.close();
 	}
-	
-<<<<<<< HEAD
-	public boolean validate(String loginId,String pwd,String role) throws Exception{
-=======
 	/* (non-Javadoc)
 	 * @see com.university.dao.IDao#validateMAC(java.lang.String, java.lang.String)
 	 */
-	@Override
-	public boolean validateMAC(String loginId,String pwd) throws Exception{
->>>>>>> 26d547cbf29374f8e829ca79d443edd5b1737590
+	
+	public boolean validate(String loginId,String pwd,String role) throws Exception{
 		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
 		String app="select * from users where login_id=? and password=? and role=?";
 		PreparedStatement pstmt=conn.prepareStatement(app);
@@ -134,7 +129,7 @@ public class DAOImpl implements IDao {
 	/* (non-Javadoc)
 	 * @see com.university.dao.IDao#updateStatus(java.lang.String, java.lang.String)
 	 */
-	@Override
+	
 	public void updateStatus(String appId,String status) throws Exception{
 		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
 		String app="update application set status=? where application_id=?";
@@ -148,7 +143,7 @@ public class DAOImpl implements IDao {
 	/* (non-Javadoc)
 	 * @see com.university.dao.IDao#setInterview(java.lang.String, java.sql.Date)
 	 */
-	@Override
+	
 	public void setInterview(String appId, Date intDate) throws Exception{
 		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
 		String app="update application set Date_Of_Interview=? where application_id=?";
@@ -162,7 +157,7 @@ public class DAOImpl implements IDao {
 	/* (non-Javadoc)
 	 * @see com.university.dao.IDao#statusConfirm(java.lang.String, java.lang.String)
 	 */
-	@Override
+	
 	public int statusConfirm(String apId, String confirm) throws Exception{
 		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
 		String app="update application set status=? where application_id=? and date_of_interview is NOT NULL";
@@ -177,7 +172,7 @@ public class DAOImpl implements IDao {
 	/* (non-Javadoc)
 	 * @see com.university.dao.IDao#addParticipant(java.lang.String)
 	 */
-	@Override
+	
 	public void addParticipant(String apId) throws Exception{
 		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system", "Capgemini123");
 		String app="select * from application where application_id=?";
