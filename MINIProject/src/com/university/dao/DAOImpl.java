@@ -25,7 +25,7 @@ public class DAOImpl implements IDao {
 		while(rs.next()){
 			String pId=rs.getString(1);
 			String pName=rs.getString(2);
-			String pLoc=rs.getString(2);
+			String pLoc=rs.getString(3);
 			Date sdate=rs.getDate(4);
 			Date edate=rs.getDate(5);
 			int sessions=rs.getInt(6);
