@@ -2,11 +2,11 @@ package com.university.entities;
 
 public class ProgramsOffered 
 {
-	private String programName;
-	private String description;
-	private String applicantEligibilty;
-	private int duration;
-	private String degree;
+	protected String programName;
+	protected String description;
+	protected String applicantEligibilty;
+	protected int duration;
+	protected String degree;
 	
 	
 	public ProgramsOffered(String programName, String description,

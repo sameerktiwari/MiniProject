@@ -2,10 +2,13 @@ package com.university.client;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 import com.university.dao.DAOImpl;
 import com.university.dao.IDao;
+import com.university.entities.Application;
+import com.university.entities.ProgramsScheduled;
 import com.university.exception.UniversityException;
 
 public class MACClient {
@@ -21,7 +24,16 @@ public class MACClient {
 		case 1: 	System.out.println("Enter Scheduled Programme ID");
 					String pId=in.nextLine();
 					pId=in.nextLine();
-					dao.getApplications(pId);
+					List<Application> apps=dao.getApplications(pId);
+					if(apps.isEmpty())
+						throw new UniversityException("No Applications avaialable");
+					System.out.println("ApplicationID Full_name Date_of_birth Highest_qualification Marks_obtained Goals EmailID Scheduled_Program_ID Status Date_of_interview");
+					for(Application applicant: apps){
+						System.out.println(applicant.getApplicationId()+" "+applicant.getFullName()
+								+" "+applicant.getDateOfBirth()+" "+applicant.getHighestQualification()
+								+" "+applicant.getMarksObtained()+" "+applicant.getGoals()
+								+" "+applicant.getScheduledProgramId()+" "+applicant.getDateOfInterview());
+					}
 					break;
 					
 		case 2:		System.out.println("Enter Application ID");
@@ -40,6 +52,7 @@ public class MACClient {
 					}
 					else{
 						dao.updateStatus(appId,"Rejected");
+						System.out.println("Application rejected");
 					}
 					break;	
 					
@@ -52,10 +65,13 @@ public class MACClient {
 					{
 						if(dao.statusConfirm(apId,"Confirmed")>0){
 							dao.addParticipant(apId);
+							System.out.println("Application Confirmed");
+							System.out.println("Participant added successfully");
 						}
 					}
 					else{
 						dao.statusConfirm(apId,"Rejected");
+						System.out.println("Application rejected");
 					}
 					break;				
 		}

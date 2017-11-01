@@ -1,10 +1,12 @@
 package com.university.client;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Scanner;
 
 import com.university.dao.DAOImpl;
 import com.university.entities.Application;
+import com.university.entities.ProgramsScheduled;
 import com.university.exception.UniversityException;
 
 public class ApplicantClient {
@@ -17,7 +19,13 @@ public class ApplicantClient {
 		System.out.println("Enter your Choice:");
 		int choice1=in.nextInt();
 		switch(choice1){
-		case 1:	dao.getProgrammes();
+		case 1:	List<ProgramsScheduled> ps=dao.getProgrammes();
+				if(ps.isEmpty())
+					throw new UniversityException("No Programmes avaialable");
+				System.out.println("Scheduled_program_ID ProgramName Location Start_date End_date Sessions_per_week");
+				for(ProgramsScheduled p: ps){
+					System.out.println(p.getScheduledProgrammeId()+" "+p.getProgramName()+" "+p.getLocation()+" "+p.getStartDate()+" "+p.getEndDate()+" "+p.getSessionsPerWeek());
+				}
 				break;
 		case 2: try {
 				System.out.println("Enter your Full name");
@@ -40,6 +48,7 @@ public class ApplicantClient {
 				String pid=in.next();
 				Application newApp=new Application(fullName,dob,hqual,marks,goals,emailId,pid);
 				int app_id=dao.submit(newApp);
+				System.out.println("Application Submitted Successfully");
 				System.out.println("Application Id: "+app_id);
 				} catch (Exception e) {
 				throw new UniversityException("Enter valid Data");
@@ -49,11 +58,12 @@ public class ApplicantClient {
 		case 3: try {
 					System.out.println("Enter your Application ID");
 					int app_id=in.nextInt();
-					dao.getStatus(app_id);
-					} catch (Exception e) {
+					String status=dao.getStatus(app_id);
+					System.out.println("Application ID: "+app_id+"\nApplication Status: "+status);
+				} catch (Exception e) {
 					e.printStackTrace();
-					}
-					break;	
+				}
+				break;	
 		}
 		
 	}

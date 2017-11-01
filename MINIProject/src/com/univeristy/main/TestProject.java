@@ -6,9 +6,6 @@ import com.university.client.AdminClient;
 import com.university.client.ApplicantClient;
 import com.university.client.MACClient;
 import com.university.dao.DAOImpl;
-import com.university.dao.IDao;
-import com.university.entities.Application;
-import com.university.exception.UniversityException;
 
 public class TestProject {
 	public static void main(String[] args) {
@@ -33,7 +30,6 @@ public class TestProject {
 			case 1:	try {
 						ApplicantClient.showApplicantClient();
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						System.out.println("Error Occured: "+e.getMessage());
 					}
 					break;
