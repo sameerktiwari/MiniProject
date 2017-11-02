@@ -53,12 +53,16 @@ public class MACClient {
 						dao.setInterview(appId,intDate);
 						System.out.println("Interview Scheduled");
 					}
-					else{
+					else if(accept.equals("N")||(accept.equals("n"))){
 						dao.updateStatus(appId,"Rejected");
 						System.out.println("Application rejected");
 					}
+					else
+						throw new UniversityException("Enter valid choice");
 					} catch(UniversityException ue){
 						System.out.println("Error Occured: "+ue.getMessage());
+					}	catch(Exception ue){
+						System.out.println("Error Occured: Enter valid data");
 					}
 					break;	
 					
@@ -85,7 +89,7 @@ public class MACClient {
 					}
 					break;	
 					
-		default:System.out.println("Enter valid choice");			
+		default:System.out.println("Error Occured: Enter valid choice");			
 		}
 	}
 }

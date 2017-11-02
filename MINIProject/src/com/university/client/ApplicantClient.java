@@ -56,7 +56,7 @@ public class ApplicantClient {
 				} catch(UniversityException ue){
 					System.out.println("Error Occured: "+ue.getMessage());
 				} catch (Exception e) {
-				System.out.println("Enter valid Data");
+				System.out.println("Error Occured: Enter valid Data");
 				}
 				break;	
 		
@@ -70,7 +70,7 @@ public class ApplicantClient {
 					System.out.println("Error Occured: "+ue.getMessage());
 				}
 				
-		default:System.out.println("Enter valid choice");		
+		default:System.out.println("Error Occured: Enter valid choice");		
 		}
 		
 	}

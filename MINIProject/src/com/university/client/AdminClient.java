@@ -162,7 +162,7 @@ public class AdminClient {
 					}
 					break;	
 					
-		default:System.out.println("Enter valid choice");			
+		default:System.out.println("Error Occured: Enter valid choice");			
 		}
 	}
 }
