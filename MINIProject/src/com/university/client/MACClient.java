@@ -6,14 +6,12 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.university.dao.DAOImpl;
-import com.university.dao.IDao;
 import com.university.entities.Application;
-import com.university.entities.ProgramsScheduled;
 import com.university.exception.UniversityException;
 
 public class MACClient {
 	private static DAOImpl dao=new DAOImpl();
-	public static void showMACClient() throws Exception{
+	public static void showMACClient(){
 		Scanner in=new Scanner(System.in);
 		System.out.println("\t1 View Applications");
 		System.out.println("\t2 Accept/Reject Application");
@@ -21,7 +19,8 @@ public class MACClient {
 		System.out.println("Enter your Choice:");
 		int choice=in.nextInt();
 		switch(choice){
-		case 1: 	System.out.println("Enter Scheduled Programme ID");
+		case 1: 	try{
+					System.out.println("Enter Scheduled Programme ID");
 					String pId=in.nextLine();
 					pId=in.nextLine();
 					List<Application> apps=dao.getApplications(pId);
@@ -34,9 +33,13 @@ public class MACClient {
 								+" "+applicant.getMarksObtained()+" "+applicant.getGoals()
 								+" "+applicant.getScheduledProgramId()+" "+applicant.getDateOfInterview());
 					}
+					} catch(UniversityException ue){
+							System.out.println("Error Occured: "+ue.getMessage());
+					}
 					break;
 					
-		case 2:		System.out.println("Enter Application ID");
+		case 2:		try{
+					System.out.println("Enter Application ID");
 					String appId=in.nextLine();
 					appId=in.nextLine();
 					System.out.println("Accept (Y/N)");
@@ -54,9 +57,13 @@ public class MACClient {
 						dao.updateStatus(appId,"Rejected");
 						System.out.println("Application rejected");
 					}
+					} catch(UniversityException ue){
+						System.out.println("Error Occured: "+ue.getMessage());
+					}
 					break;	
 					
-		case 3:		System.out.println("Enter Application ID");
+		case 3:		try{
+					System.out.println("Enter Application ID");
 					String apId=in.nextLine();
 					apId=in.nextLine();
 					System.out.println("Confirm (Y/N)");
@@ -72,6 +79,9 @@ public class MACClient {
 					else{
 						dao.statusConfirm(apId,"Rejected");
 						System.out.println("Application rejected");
+					}
+					} catch(UniversityException ue){
+						System.out.println("Error Occured: "+ue.getMessage());
 					}
 					break;	
 					

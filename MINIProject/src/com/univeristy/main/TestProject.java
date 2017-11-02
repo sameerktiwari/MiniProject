@@ -6,6 +6,7 @@ import com.university.client.AdminClient;
 import com.university.client.ApplicantClient;
 import com.university.client.MACClient;
 import com.university.dao.DAOImpl;
+import com.university.exception.UniversityException;
 
 public class TestProject {
 	public static void main(String[] args) {
@@ -23,15 +24,11 @@ public class TestProject {
 		System.out.println("\t1 Applicant");
 		System.out.println("\t2 MAC");
 		System.out.println("\t3 Admin");
-		
+		System.out.println("\t4 Exit");
 		System.out.println("Enter your Choice:");
 		int choice=in.nextInt();
 		switch(choice){
-			case 1:	try {
-						ApplicantClient.showApplicantClient();
-					} catch (Exception e) {
-						System.out.println("Error Occured: "+e.getMessage());
-					}
+			case 1:	ApplicantClient.showApplicantClient();
 					break;
 			case 2:	try {
 						System.out.println("Enter LoginID");
@@ -41,8 +38,8 @@ public class TestProject {
 						String pwd=in.nextLine();
 						if(dao.validate(loginId, pwd,"mac"))
 							MACClient.showMACClient();
-					} catch (Exception e) {
-						System.out.println("Error Occured: "+e.getMessage());
+					} catch (UniversityException ue) {
+						System.out.println("Error Occured: "+ue.getMessage());
 					}
 					break;
 			
@@ -54,10 +51,13 @@ public class TestProject {
 						String pwd=in.nextLine();
 						if(dao.validate(loginId, pwd,"admin"))
 							AdminClient.showAdminClient();
-					} catch (Exception e) {
-						System.out.println("Error Occured: "+e.getMessage());
+					} catch (UniversityException ue) {
+						System.out.println("Error Occured: "+ue.getMessage());
 					}
 					break;
+					
+			case 4:	System.out.println("Thank You");
+					return;		
 					
 			default:System.out.println("Enter valid choice");		
 			}

@@ -11,7 +11,7 @@ import com.university.exception.UniversityException;
 
 public class ApplicantClient {
 	private static DAOImpl dao=new DAOImpl();
-	public static void showApplicantClient() throws Exception{
+	public static void showApplicantClient(){
 		Scanner in=new Scanner(System.in);
 		System.out.println("\t1 View Programs");
 		System.out.println("\t2 Apply Here");
@@ -19,14 +19,17 @@ public class ApplicantClient {
 		System.out.println("Enter your Choice:");
 		int choice1=in.nextInt();
 		switch(choice1){
-		case 1:	List<ProgramsScheduled> ps=dao.getProgrammes();
-				if(ps.isEmpty())
-					throw new UniversityException("No Programmes avaialable");
+		case 1:	try{
+				List<ProgramsScheduled> ps=dao.getProgrammes();
 				System.out.println("Scheduled_program_ID ProgramName Location Start_date End_date Sessions_per_week");
 				for(ProgramsScheduled p: ps){
 					System.out.println(p.getScheduledProgrammeId()+" "+p.getProgramName()+" "+p.getLocation()+" "+p.getStartDate()+" "+p.getEndDate()+" "+p.getSessionsPerWeek());
 				}
+				} catch(UniversityException ue){
+					System.out.println("Error Occured: "+ue.getMessage());
+				}
 				break;
+				
 		case 2: try {
 				System.out.println("Enter your Full name");
 				String fullName=in.nextLine();
@@ -50,16 +53,22 @@ public class ApplicantClient {
 				int app_id=dao.submit(newApp);
 				System.out.println("Application Submitted Successfully");
 				System.out.println("Application Id: "+app_id);
+				} catch(UniversityException ue){
+					System.out.println("Error Occured: "+ue.getMessage());
 				} catch (Exception e) {
-				throw new UniversityException("Enter valid Data");
+				System.out.println("Enter valid Data");
 				}
 				break;	
 		
-		case 3: System.out.println("Enter your Application ID");
+		case 3: try{
+				System.out.println("Enter your Application ID");
 				int app_id=in.nextInt();
 				String status=dao.getStatus(app_id);
 				System.out.println("Application ID: "+app_id+"\nApplication Status: "+status);
-				break;	
+				break;
+				} catch(UniversityException ue){
+					System.out.println("Error Occured: "+ue.getMessage());
+				}
 				
 		default:System.out.println("Enter valid choice");		
 		}

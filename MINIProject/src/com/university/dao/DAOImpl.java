@@ -17,7 +17,8 @@ import com.university.utility.DBUtil;
 
 public class DAOImpl{
 	
-	public List<ProgramsScheduled> getProgrammes() throws Exception{
+	public List<ProgramsScheduled> getProgrammes() throws UniversityException{
+		try{
 		List<ProgramsScheduled> ps=new ArrayList<>();
 			Connection conn=DBUtil.createConnection();
 			Statement st=conn.createStatement();
@@ -32,11 +33,20 @@ public class DAOImpl{
 				ps.add(new ProgramsScheduled(pId, pName, pLoc, sdate, edate, sessions));
 			}
 			DBUtil.closeConnection();
+			if(ps.isEmpty())
+				throw new UniversityException("No Programmes avaialable");
 			return ps;
+		} catch(UniversityException ue){
+			throw new UniversityException(ue.getMessage());
+		} catch(Exception e){
+			throw new UniversityException("Problem in retrieving programmes");
+		}
+		
 	}
 	
 	
-	public String getStatus(int app_id) throws Exception{
+	public String getStatus(int app_id) throws UniversityException{
+		try{
 			Connection conn=DBUtil.createConnection();
 			String app="select status from application where application_id=?";
 			PreparedStatement pseq=conn.prepareStatement(app);
@@ -49,9 +59,15 @@ public class DAOImpl{
 				throw new UniversityException("Invalid Application ID");
 			DBUtil.closeConnection();
 			return status;
+		} catch(UniversityException ue){
+			throw new UniversityException(ue.getMessage());
+		}	catch(Exception e){
+			throw new UniversityException("Problem in getting status");
+		}	
 	}
 	
-	public int submit(Application applicant) throws Exception{
+	public int submit(Application applicant) throws UniversityException{
+		try{
 			Date dob1=Date.valueOf(applicant.getDateOfBirth());
 			Connection conn=DBUtil.createConnection();
 			String app="insert into application (application_id,full_name,date_of_birth,highest_qualification,marks_obtained,goals,email_id,scheduled_program_id) "
@@ -74,9 +90,13 @@ public class DAOImpl{
 			pstmt.execute();
 			DBUtil.closeConnection();
 			return app_id;
+		} catch(Exception e){
+			throw new UniversityException("Problem in getting status");
+		}	
 	}
 	
-	public List<Application> getApplications(String pId) throws Exception{
+	public List<Application> getApplications(String pId) throws UniversityException{
+		try{
 			Connection conn=DBUtil.createConnection();
 			String app="select * from application where scheduled_program_id=?";
 			PreparedStatement pseq=conn.prepareStatement(app);
@@ -88,11 +108,18 @@ public class DAOImpl{
 						rs.getInt(5),rs.getString(6),rs.getString(7),rs.getString(8)));
 			}
 			DBUtil.closeConnection();
+			if(applicants.isEmpty())
+				throw new UniversityException("No application available for Scheduled Program Id: "+pId);
 			return applicants;
-			
+		} catch(UniversityException ue){
+			throw new UniversityException(ue.getMessage());
+		} catch(Exception e){
+			throw new UniversityException("Problem in getting applications");
+		}	
 	}
 	
-	public boolean validate(String loginId,String pwd,String role) throws Exception{
+	public boolean validate(String loginId,String pwd,String role) throws UniversityException{
+			try{
 			Connection conn=DBUtil.createConnection();
 			String app="select * from users where login_id=? and password=? and role=?";
 			PreparedStatement pstmt=conn.prepareStatement(app);
@@ -106,11 +133,20 @@ public class DAOImpl{
 			}
 			DBUtil.closeConnection();
 			throw new UniversityException("Invalid LoginId/Password for the role provided");
+			} catch(UniversityException ue){
+				throw new UniversityException(ue.getMessage());
+			}	catch(Exception e){
+				throw new UniversityException("Problem in validation");
+			}
+			
 	}
 
-	public void updateStatus(String appId,String status) throws Exception{
+	public void updateStatus(String appId,String status) throws UniversityException{
+		try{
 		Connection conn=DBUtil.createConnection();
 		String app="update application set status=? where application_id=?";
+		if(!(status.equals("Accepted")||status.equals("Confirmed")||status.equals("Rejected")))
+			throw new UniversityException("Enter valid status");
 		PreparedStatement pstmt=conn.prepareStatement(app);
 		pstmt.setString(1,status);
 		pstmt.setString(2,appId);
@@ -118,9 +154,15 @@ public class DAOImpl{
 		DBUtil.closeConnection();
 		if(res==0)
 			throw new UniversityException("Invalid Application ID");
+		} catch(UniversityException ue){
+			throw new UniversityException(ue.getMessage());
+		}	catch(Exception e){
+			throw new UniversityException("Problem in updating status");
+		}
 	}
 
-	public void setInterview(String appId, Date intDate) throws Exception{
+	public void setInterview(String appId, Date intDate) throws UniversityException{
+		try{
 		Connection conn=DBUtil.createConnection();
 		String app="update application set Date_Of_Interview=? where application_id=?";
 		PreparedStatement pstmt=conn.prepareStatement(app);
@@ -130,10 +172,18 @@ public class DAOImpl{
 		DBUtil.closeConnection();
 		if(res==0)
 			throw new UniversityException("Invalid Application ID");
+		} catch(UniversityException ue){
+			throw new UniversityException(ue.getMessage());
+		}	catch(Exception e){
+			throw new UniversityException("Problem in setting interview");
+		}
 	}
 
-	public int statusConfirm(String apId, String confirm) throws Exception{
+	public int statusConfirm(String apId, String confirm) throws UniversityException{
+		try{
 		Connection conn=DBUtil.createConnection();
+		if(!(confirm.equals("Confirmed")||confirm.equals("Rejected")))
+			throw new UniversityException("Enter valid status");
 		String app="update application set status=? where application_id=? and date_of_interview is NOT NULL";
 		PreparedStatement pstmt=conn.prepareStatement(app);
 		pstmt.setString(1,confirm);
@@ -143,10 +193,16 @@ public class DAOImpl{
 		if(updt==0)
 			throw new UniversityException("Invalid Application ID");
 		return updt;
+		} catch(UniversityException ue){
+			throw new UniversityException(ue.getMessage());
+		}	catch(Exception e){
+			throw new UniversityException("Problem in confirmation of status");
+		}
 	}
 
 	
-	public void addParticipant(String apId) throws Exception{
+	public void addParticipant(String apId) throws UniversityException{
+		try{
 		Connection conn=DBUtil.createConnection();
 		String app="select * from application where application_id=?";
 		PreparedStatement pseq=conn.prepareStatement(app);
@@ -173,18 +229,26 @@ public class DAOImpl{
 		pstmt.setString(4,applicant.getScheduledProgramId());
 		pstmt.execute();
 		DBUtil.closeConnection();
+		}	catch(Exception e){
+			throw new UniversityException("Problem in adding participant");
+		}
 	}
 
-	public void deleteProgram(ProgramsOffered pgrm)  throws Exception{
+	public void deleteProgram(ProgramsOffered pgrm)  throws UniversityException{
+		try{
 		Connection conn=DBUtil.createConnection();
 		String app="delete from programs_offered where programName=?";
 		PreparedStatement pstmt=conn.prepareStatement(app);
 		pstmt.setString(1,pgrm.getProgramName());
 		pstmt.execute();
 		DBUtil.closeConnection();
+		}	catch(Exception e){
+			throw new UniversityException("Problem in deleting programme");
+		}
 	}
 
-	public void addProgram(ProgramsOffered pgrm) throws Exception{
+	public void addProgram(ProgramsOffered pgrm) throws UniversityException{
+		try{
 		Connection conn=DBUtil.createConnection();
 		String app="insert into programs_offered values(?,?,?,?,?)";
 		PreparedStatement pstmt=conn.prepareStatement(app);
@@ -195,9 +259,13 @@ public class DAOImpl{
 		pstmt.setString(5,pgrm.getDegree());
 		pstmt.execute();
 		DBUtil.closeConnection();
+		}	catch(Exception e){
+			throw new UniversityException("Problem in adding programme");
+		}
 	}
 
-	public void addProgramSchedule(ProgramsScheduled ps) throws Exception {
+	public void addProgramSchedule(ProgramsScheduled ps) throws UniversityException {
+		try{
 		Connection conn=DBUtil.createConnection();
 		String app="insert into programs_scheduled values(?,?,?,?,?,?)";
 		PreparedStatement pstmt=conn.prepareStatement(app);
@@ -209,19 +277,29 @@ public class DAOImpl{
 		pstmt.setInt(6,ps.getSessionsPerWeek());
 		pstmt.execute();
 		DBUtil.closeConnection();
+		}	catch(Exception e){
+			throw new UniversityException("Problem in adding Programme Schedule");
+		}
 	}
 
-	public void deleteProgramSchedule(ProgramsScheduled ps) throws Exception{
+	public void deleteProgramSchedule(ProgramsScheduled ps) throws UniversityException{
+		try{
 		Connection conn=DBUtil.createConnection();
 		String app="delete from programs_scheduled where scheduled_program_id=?";
 		PreparedStatement pstmt=conn.prepareStatement(app);
 		pstmt.setString(1,ps.getScheduledProgrammeId());
 		pstmt.execute();
 		DBUtil.closeConnection();
+		}	catch(Exception e){
+			throw new UniversityException("Problem in adding Programme Schedule");
+		}
 	}
 
-	public List<Application> getStatusApps(String status) throws Exception{
+	public List<Application> getStatusApps(String status) throws UniversityException{
+		try{
 		Connection conn=DBUtil.createConnection();
+		if(!(status.equals("Accepted")||status.equals("Confirmed")||status.equals("Rejected")))
+			throw new UniversityException("Enter valid status");
 		String app="select * from application where status=?";
 		PreparedStatement pseq=conn.prepareStatement(app);
 		pseq.setString(1,status);
@@ -243,9 +321,15 @@ public class DAOImpl{
 		}
 		DBUtil.closeConnection();
 		return applicants;
+		} catch(UniversityException ue){
+			throw new UniversityException(ue.getMessage());
+		}	catch(Exception e){
+			throw new UniversityException("Problem in getting applications of status: "+status);
+		}
 	}
 
-	public List<ProgramsScheduled> listPrograms(Date start, Date end) throws Exception{
+	public List<ProgramsScheduled> listPrograms(Date start, Date end) throws UniversityException{
+		try{
 		Connection conn=DBUtil.createConnection();
 		String app="select * from programs_scheduled where start_date>=? and end_date<=?";
 		PreparedStatement pstmt=conn.prepareStatement(app);
@@ -264,7 +348,14 @@ public class DAOImpl{
 			ps.add(p);
 			}
 		DBUtil.closeConnection();
+		if(ps.isEmpty())
+			throw new UniversityException("No programme available in given time period");
 		return ps;
+		} catch(UniversityException ue){
+			throw new UniversityException(ue.getMessage());
+		}	catch(Exception e){
+			throw new UniversityException("Problem in listing programmes within given time period");
+		}
 	}
 
 }
