@@ -73,7 +73,9 @@ public class MACClient {
 						dao.statusConfirm(apId,"Rejected");
 						System.out.println("Application rejected");
 					}
-					break;				
+					break;	
+					
+		default:System.out.println("Enter valid choice");			
 		}
 	}
 }

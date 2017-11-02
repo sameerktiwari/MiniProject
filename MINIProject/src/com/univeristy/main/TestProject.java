@@ -11,12 +11,12 @@ public class TestProject {
 	public static void main(String[] args) {
 	Scanner in=new Scanner(System.in);
 	DAOImpl dao=new DAOImpl();
-	try {
+	/*try {
 		DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
 	} catch (SQLException e1) {
 		// TODO Auto-generated catch block
 		e1.printStackTrace();
-	}
+	}*/
 		while(true){
 		System.out.println("Welcome to UNIVERSITY ADMISSION SYSTEM");	// TODO Auto-generated method stub
 		System.out.println("Login as:");
@@ -55,9 +55,11 @@ public class TestProject {
 						if(dao.validate(loginId, pwd,"admin"))
 							AdminClient.showAdminClient();
 					} catch (Exception e) {
-					e.printStackTrace();
+						System.out.println("Error Occured: "+e.getMessage());
 					}
-					break;		
+					break;
+					
+			default:System.out.println("Enter valid choice");		
 			}
 		}
 	}

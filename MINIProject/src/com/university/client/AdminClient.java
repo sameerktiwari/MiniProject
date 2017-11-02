@@ -135,7 +135,9 @@ public class AdminClient {
 							}
 							break;		
 					}
-					break;			
+					break;	
+					
+		default:System.out.println("Enter valid choice");			
 		}
 	}
 }

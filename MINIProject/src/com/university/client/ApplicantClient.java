@@ -55,15 +55,13 @@ public class ApplicantClient {
 				}
 				break;	
 		
-		case 3: try {
-					System.out.println("Enter your Application ID");
-					int app_id=in.nextInt();
-					String status=dao.getStatus(app_id);
-					System.out.println("Application ID: "+app_id+"\nApplication Status: "+status);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+		case 3: System.out.println("Enter your Application ID");
+				int app_id=in.nextInt();
+				String status=dao.getStatus(app_id);
+				System.out.println("Application ID: "+app_id+"\nApplication Status: "+status);
 				break;	
+				
+		default:System.out.println("Enter valid choice");		
 		}
 		
 	}
