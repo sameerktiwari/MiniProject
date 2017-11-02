@@ -12,12 +12,15 @@ import com.university.exception.UniversityException;
 public class MACClient {
 	private static DAOImpl dao=new DAOImpl();
 	public static void showMACClient(){
+		while(true){
 		Scanner in=new Scanner(System.in);
 		System.out.println("\t1 View Applications");
 		System.out.println("\t2 Accept/Reject Application");
 		System.out.println("\t3 Participant Confirmation");
+		System.out.println("\t4 Exit");
 		System.out.println("Enter your Choice:");
 		int choice=in.nextInt();
+		
 		switch(choice){
 		case 1: 	try{
 					System.out.println("Enter Scheduled Programme ID");
@@ -89,7 +92,10 @@ public class MACClient {
 					}
 					break;	
 					
+		case 4:	return;			
+					
 		default:System.out.println("Error Occured: Enter valid choice");			
 		}
+	}
 	}
 }

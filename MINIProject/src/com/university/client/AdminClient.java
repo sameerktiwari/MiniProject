@@ -15,14 +15,17 @@ public class AdminClient {
 	private static DAOImpl dao=new DAOImpl();
 	public static void showAdminClient(){
 		Scanner in=new Scanner(System.in);
+		while(true){
 		System.out.println("\t1 Update Programmes offered");
 		System.out.println("\t2 Add a Programme");
 		System.out.println("\t3 Delete a Programme");
 		System.out.println("\t4 Add a Programme Schedule");
 		System.out.println("\t5 Delete a Programme Schedule");
 		System.out.println("\t6 Generate Report");
+		System.out.println("\t7 Exit");
 		System.out.println("Enter your Choice:");
 		int choice=in.nextInt();
+		
 		switch(choice){
 		case 1: 	try{
 					System.out.println("Enter Programme name");
@@ -160,9 +163,12 @@ public class AdminClient {
 					} catch(UniversityException ue){
 						System.out.println("Error Occured: "+ue.getMessage());
 					}
-					break;	
+					break;
+					
+		case 7:	return;			
 					
 		default:System.out.println("Error Occured: Enter valid choice");			
+		}
 		}
 	}
 }
