@@ -2,10 +2,9 @@ package com.university.entities;
 
 import java.sql.Date;
 
-public class ProgramsScheduled {
+public class ProgramsScheduled extends ProgramsOffered{
 	
 	private String scheduledProgrammeId;
-	private String programName;
 	private String location;
 	private Date startDate;
 	private Date endDate;
