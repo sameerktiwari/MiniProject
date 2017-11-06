@@ -14,6 +14,7 @@ public class ApplicantClient {
 	private static IUniversityService service=new UniveristyServiceImpl();
 	public static void showApplicantClient(){
 		Scanner in=new Scanner(System.in);
+		IUniversityService sevice=new UniveristyServiceImpl();
 		while(true){
 		System.out.println("\t1 View Programs");
 		System.out.println("\t2 Apply Here");
@@ -51,6 +52,7 @@ public class ApplicantClient {
 					goals=in.nextLine();
 					System.out.println("Enter your email id");
 					String emailId=in.nextLine();
+					service.validateDetails(emailId);
 					System.out.println("Enter Scheduled program id");
 					String pid=in.next();
 					Application newApp=new Application(fullName,dob,hqual,marks,goals,emailId,pid);
