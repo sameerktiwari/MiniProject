@@ -2,7 +2,10 @@ package com.university.service;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
+import com.cap.dto.PurchaseDetails;
+import com.cap.exception.ValidateException;
 import com.university.dao.DAOImpl;
 import com.university.dao.IDAO;
 import com.university.entities.Application;
@@ -86,6 +89,22 @@ public class UniveristyServiceImpl implements IUniversityService {
 	@Override
 	public List<ProgramsScheduled> listPrograms(Date start, Date end) throws UniversityException {
 		return dao.listPrograms(start, end);
+	}
+	
+	@Override
+	public boolean validateDetails(String emailId) throws UniversityException {
+
+
+		String email="[A-Za-z0-9_.]{1,}[@][A-Za-z]{1,}[.]{1}[A-Za-z]{3}";
+		
+		
+		boolean status=true;
+		if(Pattern.matches(email, emailId)==false)
+		 throw new UniversityException("Invalid mailid");
+		return status;
+
+		
+		
 	}
 
 }

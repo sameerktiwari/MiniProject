@@ -39,5 +39,7 @@ public interface IUniversityService {
 	public List<Application> getStatusApps(String status) throws UniversityException;
 	
 	public List<ProgramsScheduled> listPrograms(Date start, Date end) throws UniversityException;
+
+	boolean validateDetails(String emailId) throws UniversityException;
 	
 }
