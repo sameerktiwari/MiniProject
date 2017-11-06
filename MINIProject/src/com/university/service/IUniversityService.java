@@ -130,14 +130,8 @@ public interface IUniversityService {
 	 * @throws UniversityException
 	 */
 	public List<ProgramsScheduled> listPrograms(Date start, Date end) throws UniversityException;
-<<<<<<< HEAD
 
+	//Validation of User Data entered
 	boolean validateDetails(Application applicant) throws UniversityException;
-=======
-	/*
-	 * Validate emailID 
-	 */
-	boolean validateDetails(String emailId) throws UniversityException;
->>>>>>> a25c88f6241bb58d9eefe935669f5448061bb461
-	
+
 }
