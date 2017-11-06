@@ -1,5 +1,5 @@
 create table Programs_Scheduled
-(Scheduled_program_id varchar2(10),ProgramName varchar2(20),Location varchar2(10),
+(Scheduled_program_id varchar2(40),ProgramName varchar2(20),Location varchar2(10),
 start_date date,end_date date,sessions_per_week number);
 
 insert into Programs_Scheduled
@@ -8,3 +8,17 @@ insert into Programs_Scheduled
 values('1002','Entrepreneurship ','Pune','30-NOV-17','15-DEC-17',3);
 insert into Programs_Scheduled
 values('1003','Macroeconomics','Pune','15-DEC-17','30-DEC-17',5);
+insert into Programs_Scheduled
+values('1004','Hospitality','Pune','15-DEC-17','30-DEC-17',5);
+insert into Programs_Scheduled
+values('1005','Tourism','Pune','15-DEC-17','30-DEC-17',5);
+insert into Programs_Scheduled
+values('1006','Business Administration','Pune','15-DEC-17','30-DEC-17',5);
+insert into Programs_Scheduled
+values('1007','Marketing','Pune','15-DEC-17','30-DEC-17',5);
+insert into Programs_Scheduled
+values('1008','Law','Pune','15-DEC-17','30-DEC-17',5);
+insert into Programs_Scheduled
+values('1009','Liberal studies','Pune','15-DEC-17','30-DEC-17',5);
+insert into Programs_Scheduled
+values('1010','Psychology','Pune','15-DEC-17','30-DEC-17',5);

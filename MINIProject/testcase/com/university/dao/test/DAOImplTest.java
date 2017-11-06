@@ -30,10 +30,7 @@ public class DAOImplTest {
 		assertEquals(1026,dao.submit(newApp));
 	}
 
-	@Test
-	public void testGetApplications() {
-		
-	}
+	
 
 	@Test
 	public void testValidate() throws UniversityException {
