@@ -15,7 +15,7 @@ import com.university.entities.ProgramsScheduled;
 import com.university.exception.UniversityException;
 import com.university.utility.DBUtil;
 
-public class DAOImpl{
+public class DAOImpl implements IDAO{
 	
 	public List<ProgramsScheduled> getProgrammes() throws UniversityException{
 		try{

@@ -4,13 +4,14 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Scanner;
 
-import com.university.dao.DAOImpl;
 import com.university.entities.Application;
 import com.university.entities.ProgramsScheduled;
 import com.university.exception.UniversityException;
+import com.university.service.IUniversityService;
+import com.university.service.UniveristyServiceImpl;
 
 public class ApplicantClient {
-	private static DAOImpl dao=new DAOImpl();
+	private static IUniversityService service=new UniveristyServiceImpl();
 	public static void showApplicantClient(){
 		Scanner in=new Scanner(System.in);
 		while(true){
@@ -23,10 +24,10 @@ public class ApplicantClient {
 		
 			switch(choice1){
 			case 1:	try{
-					List<ProgramsScheduled> ps=dao.getProgrammes();
-					System.out.println("Scheduled_program_ID ProgramName Location Start_date End_date Sessions_per_week");
+					List<ProgramsScheduled> ps=service.getProgrammes();
+					System.out.format("%15s%15s%15s%15s%15s%15s","Scheduled_program_ID","ProgramName","Location","Start_date","End_date","Sessions_per_week");
 					for(ProgramsScheduled p: ps){
-						System.out.println(p.getScheduledProgrammeId()+" "+p.getProgramName()+" "+p.getLocation()+" "+p.getStartDate()+" "+p.getEndDate()+" "+p.getSessionsPerWeek());
+						System.out.format("%15s%15s%15s%15s%15s%15s",p.getScheduledProgrammeId(),p.getProgramName(),p.getLocation(),p.getStartDate(),p.getEndDate(),p.getSessionsPerWeek());
 					}
 					} catch(UniversityException ue){
 						System.out.println("Error Occured: "+ue.getMessage());
@@ -53,7 +54,7 @@ public class ApplicantClient {
 					System.out.println("Enter Scheduled program id");
 					String pid=in.next();
 					Application newApp=new Application(fullName,dob,hqual,marks,goals,emailId,pid);
-					int app_id=dao.submit(newApp);
+					int app_id=service.submit(newApp);
 					System.out.println("Application Submitted Successfully");
 					System.out.println("Application Id: "+app_id);
 					} catch(UniversityException ue){
@@ -66,7 +67,7 @@ public class ApplicantClient {
 			case 3: try{
 					System.out.println("Enter your Application ID");
 					int app_id=in.nextInt();
-					String status=dao.getStatus(app_id);
+					String status=service.getStatus(app_id);
 					System.out.println("Application ID: "+app_id+"\nApplication Status: "+status);
 					break;
 					} catch(UniversityException ue){
