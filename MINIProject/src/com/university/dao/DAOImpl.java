@@ -74,9 +74,16 @@ public class DAOImpl implements IDAO{
 			Connection conn=DBUtil.createConnection();
 			String app="insert into application (application_id,full_name,date_of_birth,highest_qualification,marks_obtained,goals,email_id,scheduled_program_id,status) "
 					+ "values(?,?,?,?,?,?,?,?,?)";
+			String sql="select * from programs_scheduled where scheduled_program_id=?";
+			PreparedStatement ps=conn.prepareStatement(sql);
+			System.out.println(applicant.getScheduledProgramId());
+			ps.setString(1, applicant.getScheduledProgramId());
+			ResultSet rs=ps.executeQuery();
+			if(!rs.next())
+				throw new UniversityException("Enter valid Scheduled Programme Id");
 			String appid="select app_id.nextval from dual";
 			PreparedStatement pseq=conn.prepareStatement(appid);
-			ResultSet rs=pseq.executeQuery();
+			rs=pseq.executeQuery();
 			int app_id=0;
 			if(rs.next())
 				app_id=rs.getInt(1);
@@ -94,8 +101,11 @@ public class DAOImpl implements IDAO{
 			logger.info("Application ID "+app_id+" Submitted Successfully");
 			DBUtil.closeConnection();
 			return app_id;
-		} catch(Exception e){
-			throw new UniversityException("Problem in getting status");
+		}	catch(UniversityException ue){
+			throw new UniversityException(ue.getMessage());
+		}
+		catch(Exception e){
+			throw new UniversityException("Problem in submission");
 		}	
 	}
 	

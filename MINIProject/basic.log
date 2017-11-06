@@ -1,3 +1,4 @@
 2017-11-06 09:32:06,970 INFO [com.university.dao.DAOImpl] - Application ID 1042 Submitted Successfully
 2017-11-06 09:32:32,950 INFO [com.university.dao.DAOImpl] - Application ID 1042 status changed to Accepted
 2017-11-06 09:33:01,364 INFO [com.university.dao.DAOImpl] - Application ID 1042 status changed to Confirmed
+2017-11-06 11:31:26,904 INFO [com.university.dao.DAOImpl] - Application ID 1027 Submitted Successfully

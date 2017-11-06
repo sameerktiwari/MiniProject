@@ -95,9 +95,20 @@ public class UniveristyServiceImpl implements IUniversityService {
 
 
 		String email="[A-Za-z0-9_.]{1,}[@][A-Za-z]{1,}[.]{1}[A-Za-z]{3}";
+		String name="[A-Za-z ]{2,}";
 		boolean status=true;
+		
 		if(Pattern.matches(email, applicant.getEmail())==false)
 		 throw new UniversityException("Invalid mailid");
+		
+		if(LocalDate.parse(applicant.getDateOfBirth()).isAfter(LocalDate.now()))
+			throw new UniversityException("Enter valid Date of Birth");
+			
+		if(Pattern.matches(name, applicant.getFullName())==false)
+				throw new UniversityException("Enter only alphabets (Min 2 characters required)");
+		
+		if(applicant.getMarksObtained()>100)
+			throw new UniversityException("Marks must be less than or equal to 100");
 		return status;
 	}
 
