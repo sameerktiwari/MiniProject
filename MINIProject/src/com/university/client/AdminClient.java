@@ -119,45 +119,36 @@ public class AdminClient {
 					System.out.println("\t2 List of Applicants Accepted");
 					System.out.println("\t3 List of Applicants Rejected");
 					System.out.println("\t4 List of Programmes within a given time");
+					System.out.println("\t5 Exit");
 					System.out.println("Enter your Choice:");
 					int choice1=in.nextInt();
 					switch(choice1){
 					case 1:	List<Application> appsConfirmed=service.getStatusApps("Confirmed");
+							if(appsConfirmed.isEmpty())
+								throw new UniversityException("No applicants confirmed");
 							//System.out.println("ApplicationID Full_name Date_of_birth Highest_qualification Marks_obtained Goals EmailID Scheduled_Program_ID Status Date_of_interview");
-							System.out.format("%15s%15s%15s%15s%15s%15s%15s%15s","ApplicationID","Full_name","Date_of_birth","Highest_qualification","Marks_obtained","Goals","EmailID","Scheduled_Program_ID","Status","Date_of_interview");
+							System.out.format("%25s%25s%25s%25s%25s%25s%25s%25s\n","ApplicationID","Full_name","Date_of_birth","Highest_qualification","Marks_obtained","Goals","EmailID","Scheduled_Program_ID","Status","Date_of_interview");
 							for(Application applicant: appsConfirmed){
-								System.out.format("%15s%15s%15s%15s%15s%15s%15s%15s",applicant.getApplicationId(),applicant.getFullName(),applicant.getDateOfBirth(),applicant.getHighestQualification(),applicant.getMarksObtained(),applicant.getGoals(),applicant.getEmail(),applicant.getScheduledProgramId(),applicant.getStatus(),applicant.getDateOfInterview());
-								
-							/*System.out.println(applicant.getApplicationId()+" "+applicant.getFullName()
-									+" "+applicant.getDateOfBirth()+" "+applicant.getHighestQualification()
-									+" "+applicant.getMarksObtained()+" "+applicant.getGoals()+" "+applicant.getEmail()
-									+" "+applicant.getScheduledProgramId()+" "+applicant.getStatus()+" "+applicant.getDateOfInterview()+" ");*/
+								System.out.format("%25s%25s%25s%25s%25s%25s%25s%25s\n",applicant.getApplicationId(),applicant.getFullName(),applicant.getDateOfBirth(),applicant.getHighestQualification(),applicant.getMarksObtained(),applicant.getGoals(),applicant.getEmail(),applicant.getScheduledProgramId(),applicant.getStatus(),applicant.getDateOfInterview());
 							}
 							break;
 					case 2:	List<Application> appsAccepted=service.getStatusApps("Accepted");
+							if(appsAccepted.isEmpty())
+								throw new UniversityException("No applications accepted");
 							//System.out.println("ApplicationID Full_name Date_of_birth Highest_qualification Marks_obtained Goals EmailID Scheduled_Program_ID Status Date_of_interview");
-							System.out.format("%15s%15s%15s%15s%15s%15s%15s%15s","ApplicationID","Full_name","Date_of_birth","Highest_qualification","Marks_obtained","Goals","EmailID","Scheduled_Program_ID","Status","Date_of_interview");
+							System.out.format("%25s%25s%25s%25s%25s%25s%25s%25s\n","ApplicationID","Full_name","Date_of_birth","Highest_qualification","Marks_obtained","Goals","EmailID","Scheduled_Program_ID","Status","Date_of_interview");
 							for(Application applicant: appsAccepted){
-								System.out.format("%15s%15s%15s%15s%15s%15s%15s%15s",applicant.getApplicationId(),applicant.getFullName(),applicant.getDateOfBirth(),applicant.getHighestQualification(),applicant.getMarksObtained(),applicant.getGoals(),applicant.getEmail(),applicant.getScheduledProgramId(),applicant.getStatus(),applicant.getDateOfInterview());
-								
-							/*System.out.println(applicant.getApplicationId()+" "+applicant.getFullName()
-									+" "+applicant.getDateOfBirth()+" "+applicant.getHighestQualification()
-									+" "+applicant.getMarksObtained()+" "+applicant.getGoals()+" "+applicant.getEmail()
-									+" "+applicant.getScheduledProgramId()+" "+applicant.getStatus()+" "+applicant.getDateOfInterview()+" ");*/
+								System.out.format("%25s%25s%25s%25s%25s%25s%25s%25s\n",applicant.getApplicationId(),applicant.getFullName(),applicant.getDateOfBirth(),applicant.getHighestQualification(),applicant.getMarksObtained(),applicant.getGoals(),applicant.getEmail(),applicant.getScheduledProgramId(),applicant.getStatus(),applicant.getDateOfInterview());
 							}
 							break;
 					case 3:	List<Application> appsRejected=service.getStatusApps("Rejected");
+							if(appsRejected.isEmpty())
+									throw new UniversityException("No applications rejected");
 							//System.out.println("ApplicationID Full_name Date_of_birth Highest_qualification Marks_obtained Goals EmailID Scheduled_Program_ID Status Date_of_interview");
-							System.out.format("%15s%15s%15s%15s%15s%15s%15s%15s","ApplicationID","Full_name","Date_of_birth","Highest_qualification","Marks_obtained","Goals","EmailID","Scheduled_Program_ID","Status","Date_of_interview");
+							System.out.format("%25s%25s%25s%25s%25s%25s%25s%25s\n","ApplicationID","Full_name","Date_of_birth","Highest_qualification","Marks_obtained","Goals","EmailID","Scheduled_Program_ID","Status","Date_of_interview");
 							
 							for(Application applicant: appsRejected){
-								System.out.format("%15s%15s%15s%15s%15s%15s%15s%15s",applicant.getApplicationId(),applicant.getFullName(),applicant.getDateOfBirth(),applicant.getHighestQualification(),applicant.getMarksObtained(),applicant.getGoals(),applicant.getEmail(),applicant.getScheduledProgramId(),applicant.getStatus(),applicant.getDateOfInterview());
-								
-								
-							/*System.out.println(applicant.getApplicationId()+" "+applicant.getFullName()
-									+" "+applicant.getDateOfBirth()+" "+applicant.getHighestQualification()
-									+" "+applicant.getMarksObtained()+" "+applicant.getGoals()+" "+applicant.getEmail()
-									+" "+applicant.getScheduledProgramId()+" "+applicant.getStatus()+" "+applicant.getDateOfInterview()+" ");*/
+								System.out.format("%25s%25s%25s%25s%25s%25s%25s%25s\n",applicant.getApplicationId(),applicant.getFullName(),applicant.getDateOfBirth(),applicant.getHighestQualification(),applicant.getMarksObtained(),applicant.getGoals(),applicant.getEmail(),applicant.getScheduledProgramId(),applicant.getStatus(),applicant.getDateOfInterview());
 							}
 							break;
 					case 4:	System.out.println("Enter start date(yyyy-mm-dd)");
@@ -166,13 +157,19 @@ public class AdminClient {
 							System.out.println("Enter end date(yyyy-mm-dd)");
 							Date end=Date.valueOf(LocalDate.parse(in.nextLine()));
 							List<ProgramsScheduled> psList=service.listPrograms(start,end);
+							if(psList.isEmpty())
+								throw new UniversityException("No Programmes scheduled in given time period");
 							//System.out.println("Scheduled_program_ID ProgramName Location Start_date End_date Sessions_per_week");
-							System.out.format("%15s%15s%15s%15s%15s%15s","Scheduled_program_ID","ProgramName","Location","Start_date","End_date","Sessions_per_week");
+							System.out.format("%25s%25s%25s%25s%25s%25s\n","Scheduled_program_ID","ProgramName","Location","Start_date","End_date","Sessions_per_week");
 							for(ProgramsScheduled psd: psList){
-								System.out.format("%15s%15s%15s%15s%15s%15s",psd.getScheduledProgrammeId(),psd.getProgramName(),psd.getLocation(),psd.getStartDate(),psd.getEndDate(),psd.getSessionsPerWeek());
+								System.out.format("%25s%25s%25s%25s%25s%25s\n",psd.getScheduledProgrammeId(),psd.getProgramName(),psd.getLocation(),psd.getStartDate(),psd.getEndDate(),psd.getSessionsPerWeek());
 								//System.out.println(psd.getScheduledProgrammeId()+" "+psd.getProgramName()+" "+psd.getLocation()+" "+psd.getStartDate()+" "+psd.getEndDate()+" "+psd.getSessionsPerWeek());
 							}
-							break;		
+							break;
+							
+					case 5: break;		
+							
+					default:System.out.println("Error Occured: Enter valid choice");			
 					}
 					} catch(UniversityException ue){
 						System.out.println("Error Occured: "+ue.getMessage());

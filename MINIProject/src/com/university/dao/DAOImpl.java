@@ -2,12 +2,13 @@ package com.university.dao;
 
 import java.sql.Connection;
 import java.sql.Date;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.log4j.Logger;
 
 import com.university.entities.Application;
 import com.university.entities.ProgramsOffered;
@@ -16,6 +17,7 @@ import com.university.exception.UniversityException;
 import com.university.utility.DBUtil;
 
 public class DAOImpl implements IDAO{
+	private static Logger logger=Logger.getLogger(com.university.dao.DAOImpl.class);
 	
 	public List<ProgramsScheduled> getProgrammes() throws UniversityException{
 		try{
@@ -70,8 +72,8 @@ public class DAOImpl implements IDAO{
 		try{
 			Date dob1=Date.valueOf(applicant.getDateOfBirth());
 			Connection conn=DBUtil.createConnection();
-			String app="insert into application (application_id,full_name,date_of_birth,highest_qualification,marks_obtained,goals,email_id,scheduled_program_id) "
-					+ "values(?,?,?,?,?,?,?,?)";
+			String app="insert into application (application_id,full_name,date_of_birth,highest_qualification,marks_obtained,goals,email_id,scheduled_program_id,status) "
+					+ "values(?,?,?,?,?,?,?,?,?)";
 			String appid="select app_id.nextval from dual";
 			PreparedStatement pseq=conn.prepareStatement(appid);
 			ResultSet rs=pseq.executeQuery();
@@ -87,7 +89,9 @@ public class DAOImpl implements IDAO{
 			pstmt.setString(6,applicant.getGoals());
 			pstmt.setString(7,applicant.getEmail());
 			pstmt.setString(8,applicant.getScheduledProgramId());
+			pstmt.setString(9,"Pending");
 			pstmt.execute();
+			logger.info("Application ID "+app_id+" Submitted Successfully");
 			DBUtil.closeConnection();
 			return app_id;
 		} catch(Exception e){
@@ -154,6 +158,7 @@ public class DAOImpl implements IDAO{
 		DBUtil.closeConnection();
 		if(res==0)
 			throw new UniversityException("Invalid Application ID");
+		logger.info("Application ID "+appId+" status changed to "+status);
 		} catch(UniversityException ue){
 			throw new UniversityException(ue.getMessage());
 		}	catch(Exception e){
@@ -192,6 +197,7 @@ public class DAOImpl implements IDAO{
 		DBUtil.closeConnection();
 		if(updt==0)
 			throw new UniversityException("Invalid Application ID");
+		logger.info("Application ID "+apId+" status changed to "+confirm);
 		return updt;
 		} catch(UniversityException ue){
 			throw new UniversityException(ue.getMessage());
