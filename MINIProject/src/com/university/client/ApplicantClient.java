@@ -52,10 +52,10 @@ public class ApplicantClient {
 					goals=in.nextLine();
 					System.out.println("Enter your email id");
 					String emailId=in.nextLine();
-					service.validateDetails(emailId);
 					System.out.println("Enter Scheduled program id");
 					String pid=in.next();
 					Application newApp=new Application(fullName,dob,hqual,marks,goals,emailId,pid);
+					service.validateDetails(newApp);
 					int app_id=service.submit(newApp);
 					System.out.println("Application Submitted Successfully");
 					System.out.println("Application Id: "+app_id);

@@ -26,8 +26,8 @@ public class DAOImplTest {
 	@Test
 	public void testSubmit() throws UniversityException {
 	
-		Application newApp=new Application(1026,"Akash","1994-03-30","BTech",100,"akash@gmail.com","research","1001");
-		assertEquals(1026,dao.submit(newApp));
+		Application newApp=new Application("Akash","1994-03-30","BTech",100,"akash@gmail.com","research","1001");
+		assertEquals(1044,dao.submit(newApp));
 	}
 
 	

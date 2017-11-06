@@ -1,5 +1,5 @@
 create table Programs_Scheduled
-(Scheduled_program_id varchar2(40),ProgramName varchar2(20),Location varchar2(10),
+(Scheduled_program_id varchar2(40),ProgramName varchar2(25),Location varchar2(10),
 start_date date,end_date date,sessions_per_week number);
 
 insert into Programs_Scheduled

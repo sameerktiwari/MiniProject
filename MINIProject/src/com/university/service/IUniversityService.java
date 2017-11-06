@@ -40,6 +40,6 @@ public interface IUniversityService {
 	
 	public List<ProgramsScheduled> listPrograms(Date start, Date end) throws UniversityException;
 
-	boolean validateDetails(String emailId) throws UniversityException;
+	boolean validateDetails(Application applicant) throws UniversityException;
 	
 }
