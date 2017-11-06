@@ -2,6 +2,11 @@ package com.university.exception;
 
 public class UniversityException extends Exception {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public UniversityException() {
 		super();
 		// TODO Auto-generated constructor stub

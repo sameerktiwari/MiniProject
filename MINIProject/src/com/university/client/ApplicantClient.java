@@ -14,7 +14,7 @@ public class ApplicantClient {
 	private static IUniversityService service=new UniveristyServiceImpl();
 	public static void showApplicantClient(){
 		Scanner in=new Scanner(System.in);
-		IUniversityService sevice=new UniveristyServiceImpl();
+		IUniversityService service=new UniveristyServiceImpl();
 		while(true){
 		System.out.println("\t1 View Programs");
 		System.out.println("\t2 Apply Here");
@@ -24,6 +24,8 @@ public class ApplicantClient {
 		int choice1=in.nextInt();
 		
 			switch(choice1){
+			
+//Viewing Programmes			
 			case 1:	try{
 					List<ProgramsScheduled> ps=service.getProgrammes();
 					System.out.format("%25s%25s%25s%25s%25s%25s\n","Scheduled_program_ID","ProgramName","Location","Start_date","End_date","Sessions_per_week");
@@ -35,6 +37,7 @@ public class ApplicantClient {
 					}
 					break;
 					
+//Applying for a programme					
 			case 2: try {
 					System.out.println("Enter your Full name");
 					String fullName=in.nextLine();
@@ -66,6 +69,7 @@ public class ApplicantClient {
 					}
 					break;	
 			
+//Getting Status of an application					
 			case 3: try{
 					System.out.println("Enter your Application ID");
 					int app_id=in.nextInt();

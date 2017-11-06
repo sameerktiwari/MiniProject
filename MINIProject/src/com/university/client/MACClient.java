@@ -11,7 +11,10 @@ import com.university.service.IUniversityService;
 import com.university.service.UniveristyServiceImpl;
 
 public class MACClient {
+	
+//Instantiation Service class 	
 	private static IUniversityService service=new UniveristyServiceImpl();
+	
 	public static void showMACClient(){
 		while(true){
 		Scanner in=new Scanner(System.in);
@@ -23,6 +26,7 @@ public class MACClient {
 		int choice=in.nextInt();
 		
 		switch(choice){
+//Viewing applications stored in the database		
 		case 1: 	try{
 					System.out.println("Enter Scheduled Programme ID");
 					String pId=in.nextLine();
@@ -33,17 +37,13 @@ public class MACClient {
 					System.out.format("%20s%20s%20s%25s%20s%20s%20s%25s%20s%25s\n","ApplicationID","Full_name","Date_of_birth","Highest_qualification","Marks_obtained","Goals","EmailID","Scheduled_Program_ID","Status","Date_of_interview");
 					for(Application applicant: apps){
 						System.out.format("%20s%20s%20s%25s%20s%20s%20s%25s%20s%25s\n",applicant.getApplicationId(),applicant.getFullName(),applicant.getDateOfBirth(),applicant.getHighestQualification(),applicant.getMarksObtained(),applicant.getGoals(),applicant.getEmail(),applicant.getScheduledProgramId(),applicant.getStatus(),applicant.getDateOfInterview());
-						
-						/*System.out.println(applicant.getApplicationId()+" "+applicant.getFullName()
-								+" "+applicant.getDateOfBirth()+" "+applicant.getHighestQualification()
-								+" "+applicant.getMarksObtained()+" "+applicant.getGoals()
-								+" "+applicant.getScheduledProgramId()+" "+applicant.getDateOfInterview());*/
 					}
 					} catch(UniversityException ue){
 							System.out.println("Error Occured: "+ue.getMessage());
 					}
 					break;
-					
+
+//Accepting/Rejecting an application
 		case 2:		try{
 					System.out.println("Enter Application ID");
 					String appId=in.nextLine();
@@ -72,6 +72,7 @@ public class MACClient {
 					}
 					break;	
 					
+//Confirmation of a participant					
 		case 3:		try{
 					System.out.println("Enter Application ID");
 					String apId=in.nextLine();
@@ -94,7 +95,8 @@ public class MACClient {
 						System.out.println("Error Occured: "+ue.getMessage());
 					}
 					break;	
-					
+		
+//Exit					
 		case 4:	return;			
 					
 		default:System.out.println("Error Occured: Enter valid choice");			

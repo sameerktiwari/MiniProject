@@ -13,7 +13,10 @@ import com.university.service.IUniversityService;
 import com.university.service.UniveristyServiceImpl;
 
 public class AdminClient {
+	
+//Instantiation Service class 	
 	private static IUniversityService service=new UniveristyServiceImpl();
+	
 	public static void showAdminClient(){
 		Scanner in=new Scanner(System.in);
 		while(true){
@@ -28,6 +31,7 @@ public class AdminClient {
 		int choice=in.nextInt();
 		
 		switch(choice){
+//Updation of Programmmes offered
 		case 1: 	try{
 					System.out.println("Enter Programme name");
 					String pName=in.nextLine();
@@ -49,6 +53,7 @@ public class AdminClient {
 					}
 					break;
 					
+//Adding a programme			
 		case 2:		try{
 					System.out.println("Enter Programme name");
 					String pName1=in.nextLine();
@@ -69,6 +74,7 @@ public class AdminClient {
 					}
 					break;	
 					
+//Deleting a programme			
 		case 3:		try{
 					System.out.println("Enter Programme name");
 					String pName2=in.nextLine();
@@ -81,6 +87,7 @@ public class AdminClient {
 					}
 					break;		
 					
+//Adding a programme schedule			
 		case 4:		try{
 					System.out.println("Enter Program ID");
 					String psId=in.nextLine();
@@ -102,6 +109,7 @@ public class AdminClient {
 					}
 					break;
 					
+//Deleting a programme schedule			
 		case 5:		try{
 					System.out.println("Enter Scheduled Program ID");
 					String psId1=in.nextLine();
@@ -114,6 +122,7 @@ public class AdminClient {
 					}
 					break;
 					
+//Generation of Reports			
 		case 6:		try{
 					System.out.println("\t1 List of Applicants Confirmed");
 					System.out.println("\t2 List of Applicants Accepted");
@@ -123,6 +132,7 @@ public class AdminClient {
 					System.out.println("Enter your Choice:");
 					int choice1=in.nextInt();
 					switch(choice1){
+//List of applicants confirmed
 					case 1:	List<Application> appsConfirmed=service.getStatusApps("Confirmed");
 							if(appsConfirmed.isEmpty())
 								throw new UniversityException("No applicants confirmed");
@@ -132,6 +142,8 @@ public class AdminClient {
 								System.out.format("%25s%25s%25s%25s%25s%25s%25s%25s\n",applicant.getApplicationId(),applicant.getFullName(),applicant.getDateOfBirth(),applicant.getHighestQualification(),applicant.getMarksObtained(),applicant.getGoals(),applicant.getEmail(),applicant.getScheduledProgramId(),applicant.getStatus(),applicant.getDateOfInterview());
 							}
 							break;
+							
+//List of applicants confirmed		
 					case 2:	List<Application> appsAccepted=service.getStatusApps("Accepted");
 							if(appsAccepted.isEmpty())
 								throw new UniversityException("No applications accepted");
@@ -141,6 +153,8 @@ public class AdminClient {
 								System.out.format("%25s%25s%25s%25s%25s%25s%25s%25s\n",applicant.getApplicationId(),applicant.getFullName(),applicant.getDateOfBirth(),applicant.getHighestQualification(),applicant.getMarksObtained(),applicant.getGoals(),applicant.getEmail(),applicant.getScheduledProgramId(),applicant.getStatus(),applicant.getDateOfInterview());
 							}
 							break;
+							
+//List of applicants Rejected							
 					case 3:	List<Application> appsRejected=service.getStatusApps("Rejected");
 							if(appsRejected.isEmpty())
 									throw new UniversityException("No applications rejected");
@@ -151,6 +165,8 @@ public class AdminClient {
 								System.out.format("%25s%25s%25s%25s%25s%25s%25s%25s\n",applicant.getApplicationId(),applicant.getFullName(),applicant.getDateOfBirth(),applicant.getHighestQualification(),applicant.getMarksObtained(),applicant.getGoals(),applicant.getEmail(),applicant.getScheduledProgramId(),applicant.getStatus(),applicant.getDateOfInterview());
 							}
 							break;
+							
+//List of scheduled Programmes in given time period							
 					case 4:	System.out.println("Enter start date(yyyy-mm-dd)");
 							in.nextLine();
 							Date start=Date.valueOf(LocalDate.parse(in.nextLine()));
@@ -167,6 +183,7 @@ public class AdminClient {
 							}
 							break;
 							
+//Exit							
 					case 5: break;		
 							
 					default:System.out.println("Error Occured: Enter valid choice");			
