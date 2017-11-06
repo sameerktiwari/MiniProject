@@ -5,16 +5,7 @@
 	<classpathentry kind="src" path="resource"/>
 	<classpathentry kind="src" path="testcase"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="C:/oracle/product/11.2.0/client_1/jdbc/lib"/>
-	<classpathentry kind="lib" path="C:/oracle/product/11.2.0/client_1/jdbc/lib/ojdbc5.jar"/>
-	<classpathentry kind="lib" path="C:/oracle/product/11.2.0/client_1/jdbc/lib/ojdbc5_g.jar"/>
-	<classpathentry kind="lib" path="C:/oracle/product/11.2.0/client_1/jdbc/lib/ojdbc5dms.jar"/>
-	<classpathentry kind="lib" path="C:/oracle/product/11.2.0/client_1/jdbc/lib/ojdbc5dms_g.jar"/>
-	<classpathentry kind="lib" path="C:/oracle/product/11.2.0/client_1/jdbc/lib/ojdbc6.jar"/>
-	<classpathentry kind="lib" path="C:/oracle/product/11.2.0/client_1/jdbc/lib/ojdbc6_g.jar"/>
-	<classpathentry kind="lib" path="C:/oracle/product/11.2.0/client_1/jdbc/lib/ojdbc6dms.jar"/>
-	<classpathentry kind="lib" path="C:/oracle/product/11.2.0/client_1/jdbc/lib/ojdbc6dms_g.jar"/>
-	<classpathentry kind="lib" path="C:/oracle/product/11.2.0/client_1/jdbc/lib/simplefan.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="G:/JARS/ojdbc6_g.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

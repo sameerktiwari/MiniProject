@@ -5,12 +5,13 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
-import com.university.dao.DAOImpl;
 import com.university.entities.Application;
 import com.university.exception.UniversityException;
+import com.university.service.IUniversityService;
+import com.university.service.UniveristyServiceImpl;
 
 public class MACClient {
-	private static DAOImpl dao=new DAOImpl();
+	private static IUniversityService service=new UniveristyServiceImpl();
 	public static void showMACClient(){
 		while(true){
 		Scanner in=new Scanner(System.in);
@@ -26,15 +27,17 @@ public class MACClient {
 					System.out.println("Enter Scheduled Programme ID");
 					String pId=in.nextLine();
 					pId=in.nextLine();
-					List<Application> apps=dao.getApplications(pId);
+					List<Application> apps=service.getApplications(pId);
 					if(apps.isEmpty())
 						throw new UniversityException("No Applications avaialable");
-					System.out.println("ApplicationID Full_name Date_of_birth Highest_qualification Marks_obtained Goals EmailID Scheduled_Program_ID Status Date_of_interview");
+					System.out.format("%15s%15s%15s%15s%15s%15s%15s%15s","ApplicationID","Full_name","Date_of_birth","Highest_qualification","Marks_obtained","Goals","EmailID","Scheduled_Program_ID","Status","Date_of_interview");
 					for(Application applicant: apps){
-						System.out.println(applicant.getApplicationId()+" "+applicant.getFullName()
+						System.out.format("%15s%15s%15s%15s%15s%15s%15s%15s",applicant.getApplicationId(),applicant.getFullName(),applicant.getDateOfBirth(),applicant.getHighestQualification(),applicant.getMarksObtained(),applicant.getGoals(),applicant.getEmail(),applicant.getScheduledProgramId(),applicant.getStatus(),applicant.getDateOfInterview());
+						
+						/*System.out.println(applicant.getApplicationId()+" "+applicant.getFullName()
 								+" "+applicant.getDateOfBirth()+" "+applicant.getHighestQualification()
 								+" "+applicant.getMarksObtained()+" "+applicant.getGoals()
-								+" "+applicant.getScheduledProgramId()+" "+applicant.getDateOfInterview());
+								+" "+applicant.getScheduledProgramId()+" "+applicant.getDateOfInterview());*/
 					}
 					} catch(UniversityException ue){
 							System.out.println("Error Occured: "+ue.getMessage());
@@ -49,15 +52,15 @@ public class MACClient {
 					String accept=in.nextLine();
 					if(accept.equals("Y")||(accept.equals("y")))
 					{
-						dao.updateStatus(appId,"Accepted");
+						service.updateStatus(appId,"Accepted");
 						System.out.println("Enter Date of Interview(yyyy-mm-dd)");
 						String interviewDate=in.nextLine();
 						Date intDate=Date.valueOf(LocalDate.parse(interviewDate));
-						dao.setInterview(appId,intDate);
+						service.setInterview(appId,intDate);
 						System.out.println("Interview Scheduled");
 					}
 					else if(accept.equals("N")||(accept.equals("n"))){
-						dao.updateStatus(appId,"Rejected");
+						service.updateStatus(appId,"Rejected");
 						System.out.println("Application rejected");
 					}
 					else
@@ -77,14 +80,14 @@ public class MACClient {
 					String confirm=in.nextLine();
 					if(confirm.equals("Y")||(confirm.equals("y")))
 					{
-						if(dao.statusConfirm(apId,"Confirmed")>0){
-							dao.addParticipant(apId);
+						if(service.statusConfirm(apId,"Confirmed")>0){
+							service.addParticipant(apId);
 							System.out.println("Application Confirmed");
 							System.out.println("Participant added successfully");
 						}
 					}
 					else{
-						dao.statusConfirm(apId,"Rejected");
+						service.statusConfirm(apId,"Rejected");
 						System.out.println("Application rejected");
 					}
 					} catch(UniversityException ue){

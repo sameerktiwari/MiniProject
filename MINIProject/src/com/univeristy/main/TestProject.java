@@ -7,17 +7,13 @@ import com.university.client.ApplicantClient;
 import com.university.client.MACClient;
 import com.university.dao.DAOImpl;
 import com.university.exception.UniversityException;
+import com.university.service.IUniversityService;
+import com.university.service.UniveristyServiceImpl;
 
 public class TestProject {
 	public static void main(String[] args) {
 	Scanner in=new Scanner(System.in);
-	DAOImpl dao=new DAOImpl();
-	/*try {
-		DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
-	} catch (SQLException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	}*/
+	IUniversityService service=new UniveristyServiceImpl();
 		while(true){
 		System.out.println("Welcome to UNIVERSITY ADMISSION SYSTEM");	// TODO Auto-generated method stub
 		System.out.println("Login as:");
@@ -36,7 +32,7 @@ public class TestProject {
 						loginId=in.nextLine();
 						System.out.println("Enter Password");
 						String pwd=in.nextLine();
-						if(dao.validate(loginId, pwd,"mac"))
+						if(service.validate(loginId, pwd,"mac"))
 							MACClient.showMACClient();
 					} catch (UniversityException ue) {
 						System.out.println("Error Occured: "+ue.getMessage());
@@ -49,7 +45,7 @@ public class TestProject {
 						loginId=in.nextLine();
 						System.out.println("Enter Password");
 						String pwd=in.nextLine();
-						if(dao.validate(loginId, pwd,"admin"))
+						if(service.validate(loginId, pwd,"admin"))
 							AdminClient.showAdminClient();
 					} catch (UniversityException ue) {
 						System.out.println("Error Occured: "+ue.getMessage());
