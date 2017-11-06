@@ -1,2 +1,23 @@
 create table Programs_Offered
-(ProgramName varchar2(5),description varchar2(20),applicant_eligibility varchar2(40),duration number,degree_certificate_offered varchar2(10));
+(ProgramName varchar2(40),description varchar2(20),applicant_eligibility varchar2(40),duration number,degree_certificate_offered varchar2(10));
+
+insert into Programs_offered
+values('Accounting','Very useful','MBA',4,'DEGREE PROVIDED');
+insert into Programs_offered
+values('Entrepreneurship','Very useful','ANY DEGREE',3,'DEGREE PROVIDED');
+insert into Programs_offered
+values('Macroeconomics','Very useful','MBA',5,'DEGREE PROVIDED');
+insert into Programs_offered
+values('Hospitality','Very useful','MBA',5,'DEGREE PROVIDED');
+insert into Programs_offered
+values('Tourism','Very useful','ANY DEGREE',5,'DEGREE PROVIDED');
+insert into Programs_offered
+values('Business Administration','Very useful','ANY DEGREE',5,'DEGREE PROVIDED');
+insert into Programs_offered
+values('Marketing','Very useful',5,'DEGREE PROVIDED');
+insert into Programs_offered
+values('Marketing','Very useful','MBA',5,'DEGREE PROVIDED');
+insert into Programs_offered
+values('Liberal studies','Very useful','ANY DEGREE',5,'DEGREE PROVIDED');
+insert into Programs_offered
+values('Psychology','Very useful','ANY DEGREE',5,'DEGREE PROVIDED');
