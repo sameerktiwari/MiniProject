@@ -1,4 +1,10 @@
 package com.university.entities;
+/**
+ * @author GroupNo.5
+ * Encapsulated view of application in the form 
+ * of participant 
+ *
+ */
 public class Participant {
 	private int rollNo;
 	private String emailId;

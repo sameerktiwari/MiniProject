@@ -2,6 +2,15 @@ package com.university.entities;
 
 import java.sql.Date;
 
+/**
+ * @author GroupNo.5
+ * If a Program is there then when the program will be operating
+ * like same program can be scheduled in different year
+ * i.e. just like semester if we have programming in the 2010 the same 
+ * course may be scheduled for 2011 if the university continues
+ * to fund it.
+ *
+ */
 public class ProgramsScheduled extends ProgramsOffered{
 	
 	private String scheduledProgrammeId;

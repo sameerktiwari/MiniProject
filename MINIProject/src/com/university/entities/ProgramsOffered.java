@@ -1,5 +1,13 @@
 package com.university.entities;
 
+/**
+ * @author GroupNo.5
+ * Programs which are on the guideline of 
+ * University.Contains who are eligible 
+ * the duration of the program and which degree 
+ * will be given on the completion
+ *
+ */
 public class ProgramsOffered 
 {
 	protected String programName;

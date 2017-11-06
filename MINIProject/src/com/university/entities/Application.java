@@ -1,6 +1,15 @@
 package com.university.entities;
 import java.sql.*;
 
+/**
+ * @author GroupNo. 5
+ * Application by a participant for a
+ * scheduled program available by the university/
+ * Every attribute needed for the application will be present here
+ * and depending on the progress of the Application they will
+ * get updated.
+ *
+ */
 public class Application {
 	public int applicationId;
 	private String fullName;
