@@ -47,6 +47,8 @@ public class UniveristyServiceImpl implements IUniversityService {
 
 	@Override
 	public void setInterview(String appId, Date intDate) throws UniversityException {
+		if(!intDate.after(Date.valueOf(LocalDate.now())))
+			throw new UniversityException("Interview date should be future date");
 		dao.setInterview(appId, intDate);
 	}
 

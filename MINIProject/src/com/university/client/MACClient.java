@@ -30,9 +30,9 @@ public class MACClient {
 					List<Application> apps=service.getApplications(pId);
 					if(apps.isEmpty())
 						throw new UniversityException("No Applications avaialable");
-					System.out.format("%20s%20s%20s%20s%20s%20s%20s%25s\n","ApplicationID","Full_name","Date_of_birth","Highest_qualification","Marks_obtained","Goals","EmailID","Scheduled_Program_ID","Status","Date_of_interview");
+					System.out.format("%20s%20s%20s%25s%20s%20s%20s%25s%20s%25s\n","ApplicationID","Full_name","Date_of_birth","Highest_qualification","Marks_obtained","Goals","EmailID","Scheduled_Program_ID","Status","Date_of_interview");
 					for(Application applicant: apps){
-						System.out.format("%20s%20s%20s%20s%20s%20s%20s%25s\n",applicant.getApplicationId(),applicant.getFullName(),applicant.getDateOfBirth(),applicant.getHighestQualification(),applicant.getMarksObtained(),applicant.getGoals(),applicant.getEmail(),applicant.getScheduledProgramId(),applicant.getStatus(),applicant.getDateOfInterview());
+						System.out.format("%20s%20s%20s%25s%20s%20s%20s%25s%20s%25s\n",applicant.getApplicationId(),applicant.getFullName(),applicant.getDateOfBirth(),applicant.getHighestQualification(),applicant.getMarksObtained(),applicant.getGoals(),applicant.getEmail(),applicant.getScheduledProgramId(),applicant.getStatus(),applicant.getDateOfInterview());
 						
 						/*System.out.println(applicant.getApplicationId()+" "+applicant.getFullName()
 								+" "+applicant.getDateOfBirth()+" "+applicant.getHighestQualification()

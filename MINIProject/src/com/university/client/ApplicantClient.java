@@ -26,9 +26,9 @@ public class ApplicantClient {
 			switch(choice1){
 			case 1:	try{
 					List<ProgramsScheduled> ps=service.getProgrammes();
-					System.out.format("%20s%20s%20s%20s%20s%20s\n","Scheduled_program_ID","ProgramName","Location","Start_date","End_date","Sessions_per_week");
+					System.out.format("%25s%25s%25s%25s%25s%25s\n","Scheduled_program_ID","ProgramName","Location","Start_date","End_date","Sessions_per_week");
 					for(ProgramsScheduled p: ps){
-						System.out.format("%20s%20s%20s%20s%20s%20s\n",p.getScheduledProgrammeId(),p.getProgramName(),p.getLocation(),p.getStartDate(),p.getEndDate(),p.getSessionsPerWeek());
+						System.out.format("%25s%25s%25s%25s%25s%25s\n",p.getScheduledProgrammeId(),p.getProgramName(),p.getLocation(),p.getStartDate(),p.getEndDate(),p.getSessionsPerWeek());
 					}
 					} catch(UniversityException ue){
 						System.out.println("Error Occured: "+ue.getMessage());

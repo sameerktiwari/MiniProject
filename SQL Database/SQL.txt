@@ -1,0 +1,77 @@
+create table application
+(Application_id number primary key,
+full_name varchar2(20),
+date_of_birth date,
+highest_qualification varchar2(10),
+marks_obtained number,
+goals varchar2(20),
+email_id varchar2(20),
+Scheduled_program_id varchar2(5),
+status varchar2(10),
+Date_Of_Interview date);
+
+create table Participant 
+(Roll_no varchar2(5),
+email_id varchar2(20),
+Application_id number references application(Application_id),
+Scheduled_program_id varchar2(5));
+
+create table Programs_Offered
+(ProgramName varchar2(40),description varchar2(20),applicant_eligibility varchar2(40),duration number,degree_certificate_offered varchar2(10));
+
+insert into Programs_offered
+values('Accounting','Very useful','MBA',4,'DEGREE PROVIDED');
+insert into Programs_offered
+values('Entrepreneurship','Very useful','ANY DEGREE',3,'DEGREE PROVIDED');
+insert into Programs_offered
+values('Macroeconomics','Very useful','MBA',5,'DEGREE PROVIDED');
+insert into Programs_offered
+values('Hospitality','Very useful','MBA',5,'DEGREE PROVIDED');
+insert into Programs_offered
+values('Tourism','Very useful','ANY DEGREE',5,'DEGREE PROVIDED');
+insert into Programs_offered
+values('Business Administration','Very useful','ANY DEGREE',5,'DEGREE PROVIDED');
+insert into Programs_offered
+values('Marketing','Very useful',5,'DEGREE PROVIDED');
+insert into Programs_offered
+values('Marketing','Very useful','MBA',5,'DEGREE PROVIDED');
+insert into Programs_offered
+values('Liberal studies','Very useful','ANY DEGREE',5,'DEGREE PROVIDED');
+insert into Programs_offered
+values('Psychology','Very useful','ANY DEGREE',5,'DEGREE PROVIDED');
+
+create table Programs_Scheduled
+(Scheduled_program_id varchar2(40),ProgramName varchar2(25),Location varchar2(10),
+start_date date,end_date date,sessions_per_week number);
+
+insert into Programs_Scheduled
+values('1001','Accounting','Pune','30-NOV-17','30-DEC-17',4);
+insert into Programs_Scheduled
+values('1002','Entrepreneurship ','Pune','30-NOV-17','15-DEC-17',3);
+insert into Programs_Scheduled
+values('1003','Macroeconomics','Pune','15-DEC-17','30-DEC-17',5);
+insert into Programs_Scheduled
+values('1004','Hospitality','Pune','30-DEC-17','30-JAN-18',5);
+insert into Programs_Scheduled
+values('1005','Tourism','Pune','20-DEC-17','20-JAN-18',5);
+insert into Programs_Scheduled
+values('1006','Business Administration','Pune','15-DEC-17','30-DEC-17',5);
+insert into Programs_Scheduled
+values('1007','Marketing','Pune','15-DEC-17','30-DEC-17',5);
+insert into Programs_Scheduled
+values('1008','Law','Pune','15-DEC-17','30-DEC-17',5);
+insert into Programs_Scheduled
+values('1009','Liberal studies','Pune','15-DEC-17','30-DEC-17',5);
+insert into Programs_Scheduled
+values('1010','Psychology','Pune','15-DEC-17','30-DEC-17',5);
+
+create sequence app_id
+start with 1001
+increment by 1
+
+create table Users
+(login_id varchar2(5),password varchar2(10),role varchar2(5)); 
+
+create sequence university_rollno
+start with 1001
+increment by 1

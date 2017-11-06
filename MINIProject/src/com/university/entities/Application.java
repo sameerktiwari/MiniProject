@@ -145,6 +145,23 @@ public class Application {
 				+ scheduledProgramId + ", status=" + status
 				+ ", dateOfInterview=" + dateOfInterview + "]";
 	}
+
+	public Application(int applicationId, String fullName, String dateOfBirth,
+			String highestQualification, int marksObtained, String email,
+			String goals, String scheduledProgramId, String status,
+			Date dateOfInterview) {
+		super();
+		this.applicationId = applicationId;
+		this.fullName = fullName;
+		this.dateOfBirth = dateOfBirth;
+		this.highestQualification = highestQualification;
+		this.marksObtained = marksObtained;
+		this.email = email;
+		this.goals = goals;
+		this.scheduledProgramId = scheduledProgramId;
+		this.status = status;
+		this.dateOfInterview = dateOfInterview;
+	}
 	
 	
 	

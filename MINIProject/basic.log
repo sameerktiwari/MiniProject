@@ -1,0 +1,5 @@
+2017-11-06 12:01:27,217 INFO [com.university.dao.DAOImpl] - Application ID 1048 Submitted Successfully
+2017-11-06 12:01:50,517 INFO [com.university.dao.DAOImpl] - Application ID 1048 status changed to Accepted
+2017-11-06 12:02:04,562 INFO [com.university.dao.DAOImpl] - Application ID 1048 status changed to Confirmed
+2017-11-06 12:03:10,528 INFO [com.university.dao.DAOImpl] - Application ID 1048 status changed to Confirmed
+2017-11-06 12:38:06,679 INFO [com.university.dao.DAOImpl] - Application ID 1044 status changed to Accepted

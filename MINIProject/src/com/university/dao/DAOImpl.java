@@ -105,6 +105,7 @@ public class DAOImpl implements IDAO{
 			throw new UniversityException(ue.getMessage());
 		}
 		catch(Exception e){
+			System.out.println(e.getMessage());
 			throw new UniversityException("Problem in submission");
 		}	
 	}
@@ -119,7 +120,7 @@ public class DAOImpl implements IDAO{
 			List<Application> applicants=new ArrayList<>();
 			while(rs.next()){
 				applicants.add(new Application(rs.getInt(1),rs.getString(2),rs.getDate(3)+"",rs.getString(4),
-						rs.getInt(5),rs.getString(6),rs.getString(7),rs.getString(8)));
+						rs.getInt(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getDate(10)));
 			}
 			DBUtil.closeConnection();
 			if(applicants.isEmpty())
@@ -221,9 +222,15 @@ public class DAOImpl implements IDAO{
 		try{
 		Connection conn=DBUtil.createConnection();
 		String app="select * from application where application_id=?";
+		String appid="select university_rollno.nextval from dual";
+		PreparedStatement ps=conn.prepareStatement(appid);
+		ResultSet rs=ps.executeQuery();
+		int rollno=0;
+		if(rs.next())
+			rollno=rs.getInt(1);
 		PreparedStatement pseq=conn.prepareStatement(app);
 		pseq.setString(1,apId);
-		ResultSet rs=pseq.executeQuery();
+		rs=pseq.executeQuery();
 		Application applicant=new Application();
 		if(rs.next()){
 			applicant.setApplicationId(rs.getInt(1));
@@ -239,7 +246,7 @@ public class DAOImpl implements IDAO{
 		}
 		String app1="insert into participant values(?,?,?,?)";
 		PreparedStatement pstmt=conn.prepareStatement(app1);
-		pstmt.setString(1,"1");
+		pstmt.setString(1,rollno+"");
 		pstmt.setString(2,applicant.getEmail());
 		pstmt.setInt(3,applicant.getApplicationId());
 		pstmt.setString(4,applicant.getScheduledProgramId());

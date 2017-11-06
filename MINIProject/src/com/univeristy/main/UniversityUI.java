@@ -10,7 +10,7 @@ import com.university.exception.UniversityException;
 import com.university.service.IUniversityService;
 import com.university.service.UniveristyServiceImpl;
 
-public class TestProject {
+public class UniversityUI {
 	public static void main(String[] args) {
 	Scanner in=new Scanner(System.in);
 	IUniversityService service=new UniveristyServiceImpl();
